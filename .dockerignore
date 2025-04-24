@@ -1,0 +1,42 @@
+**/.env
+
+# Node
+.npmrc
+node_modules
+
+# Output
+.svelte-kit
+build
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Project
+LICENSE
+README.md
+
+# Git
+.git
+.github
+.gitignore
+.gitattributes
+
+# Docker
+.dockerignore
+docker-compose.yml
+Dockerfile
+
+# IDE Configuration
+.editorconfig
+
+# VS Code
+.vscode
+
+# ESLint
+.eslintrc.cjs
+eslint.config.js
+
+# Prettier
+.prettierignore
+.prettierrc
