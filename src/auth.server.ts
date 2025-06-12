@@ -12,13 +12,13 @@ export const { handle } = SvelteKitAuth({
 				token.accessToken = account.access_token;
 			}
 			if (profile) {
-				token.preferredUsername = profile.preferred_username;
+				token.username = profile.preferred_username ?? profile.username;
 			}
 			return token;
 		},
 		async session({ session, token }) {
 			const accessToken = token.accessToken;
-			const username = token.preferredUsername;
+			const username = token.username;
 			const user = { ...session.user, username };
 			session.user = user;
 			return { ...session, accessToken };
