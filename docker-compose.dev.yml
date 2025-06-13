@@ -1,0 +1,23 @@
+services:
+  frontend:
+    container_name: pandemic-frontend
+    build:
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: development
+        PORT: 5173
+    environment:
+      ORIGIN: ${ORIGIN}
+
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_TRUST_HOST: ${AUTH_TRUST_HOST}
+
+      KEYCLOAK_1_ID: ${KEYCLOAK_1_ID}
+      KEYCLOAK_1_SECRET: ${KEYCLOAK_1_SECRET}
+      KEYCLOAK_1_ISSUER: ${KEYCLOAK_1_ISSUER}
+
+      KEYCLOAK_2_ID: ${KEYCLOAK_2_ID}
+      KEYCLOAK_2_SECRET: ${KEYCLOAK_2_SECRET}
+      KEYCLOAK_2_ISSUER: ${KEYCLOAK_2_ISSUER}
+    ports:
+      - "5173:5173"
