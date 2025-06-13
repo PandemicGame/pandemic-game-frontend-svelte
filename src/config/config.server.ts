@@ -8,7 +8,7 @@ export interface Config {
 }
 
 export function getRedirectUrl(provider: string): string {
-	return `${env.APP_ORIGIN}/auth/callback/${provider}`;
+	return `${env.ORIGIN}/auth/callback/${provider}`;
 }
 
 const isDev = import.meta.env.DEV && !import.meta.env.PROD;
