@@ -1,8 +1,9 @@
 import { env } from '$env/dynamic/private';
 import { SvelteKitAuth } from '@auth/sveltekit';
+import type { Handle } from '@sveltejs/kit';
 import config from './config/config.server';
 
-export const { handle } = SvelteKitAuth({
+const { handle } = SvelteKitAuth({
 	secret: env.AUTH_SECRET,
 	trustHost: Boolean(env.AUTH_TRUST_HOST),
 	providers: config.authProviders,
@@ -25,3 +26,5 @@ export const { handle } = SvelteKitAuth({
 		}
 	}
 });
+
+export const authHandle: Handle = handle;
