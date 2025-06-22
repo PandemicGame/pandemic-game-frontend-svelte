@@ -23,6 +23,9 @@ const { handle } = SvelteKitAuth({
 			const user = { ...session.user, username };
 			session.user = user;
 			return { ...session, accessToken };
+		},
+		async redirect({ baseUrl }) {
+			return `${baseUrl}/login/authenticated`;
 		}
 	}
 });
