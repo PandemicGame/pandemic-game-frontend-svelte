@@ -3,6 +3,8 @@ import { SvelteKitAuth } from '@auth/sveltekit';
 import type { Handle } from '@sveltejs/kit';
 import config from './config/config.server';
 
+export const authJsSessionToken = 'authjs.session-token';
+
 const { handle } = SvelteKitAuth({
 	secret: env.AUTH_SECRET,
 	trustHost: Boolean(env.AUTH_TRUST_HOST),
