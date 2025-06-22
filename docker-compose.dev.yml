@@ -8,6 +8,7 @@ services:
         PORT: 5173
     environment:
       ORIGIN: ${ORIGIN}
+      PUBLIC_API_URL: ${PUBLIC_API_URL}
 
       AUTH_SECRET: ${AUTH_SECRET}
       AUTH_TRUST_HOST: ${AUTH_TRUST_HOST}

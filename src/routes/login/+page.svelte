@@ -1,9 +1,19 @@
 <script lang="ts">
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
+	import config from '../../config/config';
 
 	let loginMethod = $state('anonymous');
 
 	let username = $state('');
+
+	async function submitAnonymousLoginForm(event: SubmitEvent) {
+		event.preventDefault();
+
+		const res = await fetch(`/login/anonymous?${config.usernameChoiceQueryParam}=${username}`);
+		if (res.ok) {
+			location.href = '/';
+		}
+	}
 </script>
 
 <div class="flex h-screen w-screen items-center justify-center">
@@ -15,13 +25,13 @@
 			{/snippet}
 			{#snippet content()}
 				<Tabs.Panel value="anonymous">
-					<form action="#" class="flex flex-col gap-2">
+					<form class="flex flex-col gap-2" onsubmit={submitAnonymousLoginForm}>
 						<label class="label">
 							<span class="label-text">Username</span>
-							<input class="input" type="text" bind:value={username} />
+							<input class="input" type="text" bind:value={username} required />
 						</label>
 						<div>
-							<button type="button" class="btn preset-filled-primary-500">
+							<button type="submit" class="btn preset-filled-primary-500">
 								Choose username
 							</button>
 						</div>
