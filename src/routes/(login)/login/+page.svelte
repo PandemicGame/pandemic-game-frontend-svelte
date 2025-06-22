@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
-	import config from '../../config/config';
+	import config from '../../../config/config';
 
 	let loginMethod = $state('anonymous');
 

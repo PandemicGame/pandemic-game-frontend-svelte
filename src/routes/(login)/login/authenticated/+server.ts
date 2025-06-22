@@ -1,6 +1,6 @@
 import { userService } from '$lib/services/UserService';
 import { redirect } from '@sveltejs/kit';
-import config from '../../../config/config';
+import config from '../../../../config/config';
 
 export const GET = async ({ locals, cookies }) => {
 	const session = await locals.auth();
