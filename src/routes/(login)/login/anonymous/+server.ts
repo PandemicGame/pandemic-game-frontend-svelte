@@ -1,5 +1,5 @@
 import { userService } from '$lib/services/UserService';
-import config from '../../../config/config';
+import config from '../../../../config/config';
 
 export const GET = async ({ url, cookies }) => {
 	const username: string | null = url.searchParams.get(config.usernameChoiceQueryParam);
