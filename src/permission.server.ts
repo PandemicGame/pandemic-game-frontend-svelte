@@ -1,5 +1,5 @@
+import config from '$lib/config/config';
 import { redirect, type Handle } from '@sveltejs/kit';
-import config from './config/config';
 
 const loginPageUrl = '/login';
 

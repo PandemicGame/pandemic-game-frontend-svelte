@@ -1,6 +1,6 @@
+import config from '$lib/config/config';
 import Service from '$lib/Service';
 import { error, redirect, type Cookies } from '@sveltejs/kit';
-import config from '../../config/config';
 
 class UserService extends Service {
 	protected readonly errorResponseCallback: (message: string, statusCode: number) => never = (

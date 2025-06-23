@@ -1,4 +1,4 @@
-import config from '../config/config';
+import config from '$lib/config/config';
 
 export default abstract class Service {
 	protected readonly apiUrl: string = config.apiUrl;
