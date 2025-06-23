@@ -1,5 +1,5 @@
+import config from '$lib/config/config';
 import { authJsSessionToken } from '../../auth.server';
-import config from '../../config/config';
 import { redirectToLogin } from '../../permission.server';
 
 export const GET = async ({ cookies }) => {
