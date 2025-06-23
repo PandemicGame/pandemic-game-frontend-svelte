@@ -16,6 +16,10 @@ declare global {
 			expires: string | Date;
 			accessToken: string;
 		}
+		interface LayoutData {
+			session: Session;
+			userAccessToken: string;
+		}
 	}
 }
 
