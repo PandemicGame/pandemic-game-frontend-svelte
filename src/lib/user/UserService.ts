@@ -8,8 +8,14 @@ class UserService extends Service {
 
 	public async getUserInfo(accessToken: string): Promise<User> {
 		return this.fetchJson<User>(
-			`${this.apiUrl}/user?accessToken=${accessToken}`,
-			{},
+			`${this.apiUrl}/user`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(accessToken)
+			},
 			this.throwError,
 			this.throwError
 		);
