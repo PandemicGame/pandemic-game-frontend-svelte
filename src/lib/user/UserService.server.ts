@@ -97,6 +97,10 @@ class UserService extends Service {
 			this.setAccessTokenAsCookie(accessToken, cookies);
 		}
 	}
+
+	public deleteAccessTokeninCookie(cookies: Cookies): void {
+		cookies.delete(config.userAccessTokenCookieKey, config.userAccessTokenCookieOptions);
+	}
 }
 
 export const userService: UserService = new UserService();
