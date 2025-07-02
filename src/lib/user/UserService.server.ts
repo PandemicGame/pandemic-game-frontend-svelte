@@ -78,6 +78,14 @@ class UserService extends Service {
 	private setAccessTokenAsCookie(accessToken: string, cookies: Cookies): void {
 		cookies.set(config.userAuthTokenCookieKey, accessToken, config.userAuthTokenCookieOptions);
 	}
+
+	public hasAccessTokenAsCookie(cookies: Cookies): boolean {
+		return cookies.get(config.userAuthTokenCookieKey) !== undefined;
+	}
+
+	public getAccessTokenFromCookie(cookies: Cookies): string {
+		return cookies.get(config.userAuthTokenCookieKey) ?? '';
+	}
 }
 
 export const userService: UserService = new UserService();
