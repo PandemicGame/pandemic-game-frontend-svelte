@@ -7,7 +7,7 @@ export const GET = async ({ cookies }) => {
 	const path = config.userAccessTokenCookieOptions.path;
 	const cookieOptions = { path };
 
-	userService.deleteAccessTokeninCookie(cookies);
+	userService.deleteAccessTokenInCookie(cookies);
 	cookies.delete(authJsSessionToken, cookieOptions);
 
 	redirectToLogin();
