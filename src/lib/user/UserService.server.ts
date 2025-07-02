@@ -86,6 +86,13 @@ class UserService extends Service {
 	public getAccessTokenFromCookie(cookies: Cookies): string {
 		return cookies.get(config.userAuthTokenCookieKey) ?? '';
 	}
+
+	public refreshAccessTokenCookie(cookies: Cookies): void {
+		const accessToken = this.getAccessTokenFromCookie(cookies);
+		if (accessToken) {
+			this.setAccessTokenAsCookie(accessToken, cookies);
+		}
+	}
 }
 
 export const userService: UserService = new UserService();
