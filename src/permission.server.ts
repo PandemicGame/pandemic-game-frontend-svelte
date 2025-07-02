@@ -1,4 +1,4 @@
-import config from '$lib/config/config';
+import { userService } from '$lib/user/UserService.server';
 import { redirect, type Handle } from '@sveltejs/kit';
 
 const loginPageUrl = '/login';
@@ -14,9 +14,9 @@ export function redirectToLogin(): never {
 }
 
 export const permissionEvaluatorHandle: Handle = async ({ event, resolve }) => {
-	const token = event.cookies.get(config.userAuthTokenCookieKey);
+	const hasToken = userService.hasAccessTokenAsCookie(event.cookies);
 
-	if (!token && isLoginRequired(event.url.pathname)) {
+	if (!hasToken && isLoginRequired(event.url.pathname)) {
 		redirectToLogin();
 	}
 

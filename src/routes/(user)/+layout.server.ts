@@ -1,9 +1,9 @@
-import config from '$lib/config/config';
+import { userService } from '$lib/user/UserService.server';
 import type { LayoutServerLoad } from '../$types';
 
 export const load: LayoutServerLoad = async (event) => {
 	return {
 		session: await event.locals.auth(),
-		userAccessToken: event.cookies.get(config.userAuthTokenCookieKey)
+		userAccessToken: userService.getAccessTokenFromCookie(event.cookies)
 	};
 };
