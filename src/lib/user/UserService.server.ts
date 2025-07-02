@@ -98,7 +98,7 @@ class UserService extends Service {
 		}
 	}
 
-	public deleteAccessTokeninCookie(cookies: Cookies): void {
+	public deleteAccessTokenInCookie(cookies: Cookies): void {
 		cookies.delete(config.userAccessTokenCookieKey, config.userAccessTokenCookieOptions);
 	}
 }
