@@ -5,10 +5,10 @@
 
 	let { children, data } = $props();
 
-	const authToken = data.userAccessToken;
+	const accessToken = data.userAccessToken;
 
 	onMount(async () => {
-		const user = await userService.getUserInfo(authToken);
+		const user = await userService.getUserInfo(accessToken);
 		userStore.set(user);
 	});
 </script>

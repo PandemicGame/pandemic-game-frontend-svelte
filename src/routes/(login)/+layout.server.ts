@@ -3,9 +3,9 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async (event) => {
-	const authToken = event.cookies.get(config.userAuthTokenCookieKey);
+	const accessToken = event.cookies.get(config.userAccessTokenCookieKey);
 
-	if (authToken) {
+	if (accessToken) {
 		throw redirect(303, '/');
 	}
 
