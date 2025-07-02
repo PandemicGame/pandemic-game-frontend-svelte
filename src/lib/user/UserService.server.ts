@@ -76,15 +76,19 @@ class UserService extends Service {
 	}
 
 	private setAccessTokenAsCookie(accessToken: string, cookies: Cookies): void {
-		cookies.set(config.userAuthTokenCookieKey, accessToken, config.userAuthTokenCookieOptions);
+		cookies.set(
+			config.userAccessTokenCookieKey,
+			accessToken,
+			config.userAccessTokenCookieOptions
+		);
 	}
 
 	public hasAccessTokenAsCookie(cookies: Cookies): boolean {
-		return cookies.get(config.userAuthTokenCookieKey) !== undefined;
+		return cookies.get(config.userAccessTokenCookieKey) !== undefined;
 	}
 
 	public getAccessTokenFromCookie(cookies: Cookies): string {
-		return cookies.get(config.userAuthTokenCookieKey) ?? '';
+		return cookies.get(config.userAccessTokenCookieKey) ?? '';
 	}
 
 	public refreshAccessTokenCookie(cookies: Cookies): void {

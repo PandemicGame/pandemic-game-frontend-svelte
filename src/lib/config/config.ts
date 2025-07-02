@@ -3,8 +3,8 @@ import { env } from '$env/dynamic/public';
 export default {
 	apiUrl: env.PUBLIC_API_URL,
 	usernameChoiceQueryParam: 'username',
-	userAuthTokenCookieKey: 'userAuthToken',
-	userAuthTokenCookieOptions: {
+	userAccessTokenCookieKey: 'userAuthToken',
+	userAccessTokenCookieOptions: {
 		path: '/',
 		httpOnly: true,
 		secure: true,
