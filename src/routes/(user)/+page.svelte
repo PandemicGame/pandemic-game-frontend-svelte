@@ -1,11 +1,16 @@
 <script lang="ts">
 	import type User from '$lib/user/User';
 	import { userStore } from '$lib/user/UserStore.js';
+	import { onDestroy } from 'svelte';
 
 	let user: User | undefined = $state();
 
-	userStore.subscribe((u) => {
+	const unsubscribe = userStore.subscribe((u) => {
 		user = u;
+	});
+
+	onDestroy(() => {
+		unsubscribe();
 	});
 </script>
 
