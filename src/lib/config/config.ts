@@ -1,7 +1,8 @@
 import { env } from '$env/dynamic/public';
 
 export default {
-	apiUrl: env.PUBLIC_API_URL,
+	apiUrl: env.PUBLIC_API_URL ?? '',
+	webSocketUrl: env.PUBLIC_WEBSOCKET_URL ?? '',
 	usernameChoiceQueryParam: 'username',
 	userAccessTokenCookieKey: 'userAuthToken',
 	userAccessTokenCookieOptions: {
