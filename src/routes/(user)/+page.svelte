@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type User from '$lib/user/User';
-	import { userStore } from '$lib/user/UserStore.js';
+	import { userStore } from '$lib/user/UserStore';
 	import { onDestroy } from 'svelte';
 
 	let user: User | undefined = $state();
