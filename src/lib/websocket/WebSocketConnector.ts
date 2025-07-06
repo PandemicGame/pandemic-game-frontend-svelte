@@ -8,16 +8,14 @@ import { WebSocketMessageType } from './WebSocketMessageType';
 export default abstract class WebSocketConnector {
 	protected socket: WebSocket | null = null;
 	protected url: string;
-	protected accessToken: string;
 	protected handlers: WebSocketHandler[] = [];
 	public isConnected: Writable<boolean> = writable(false);
 
-	constructor(url: string, accessToken: string) {
+	constructor(url: string) {
 		this.url = url;
-		this.accessToken = accessToken;
 	}
 
-	public connect(): void {
+	public connect(accessToken: string): void {
 		if (this.socket) return;
 
 		this.socket = new WebSocket(this.url);
@@ -25,7 +23,7 @@ export default abstract class WebSocketConnector {
 		this.socket.addEventListener('open', () => {
 			this.isConnected.set(true);
 			console.log(`[WebSocket] Connected to ${this.url}`);
-			this.sendAuth();
+			this.sendAuth(accessToken);
 		});
 
 		this.socket.addEventListener('message', (event) => {
@@ -62,10 +60,10 @@ export default abstract class WebSocketConnector {
 		}
 	}
 
-	protected sendAuth(): void {
+	protected sendAuth(accessToken: string): void {
 		this.send({
 			messageType: WebSocketMessageType.AUTH,
-			payload: this.accessToken
+			payload: accessToken
 		});
 	}
 
