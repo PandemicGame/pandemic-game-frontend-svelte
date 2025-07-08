@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { userService } from '$lib/user/UserService';
 	import { userStore } from '$lib/user/UserStore';
-	import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector.js';
+	import {
+		connectAndAssignHandlers,
+		userWebSocketConnector
+	} from '$lib/user/UserWebSocketConnector';
 	import { onMount } from 'svelte';
 
 	let { children, data } = $props();
@@ -14,7 +17,7 @@
 			userStore.set(user);
 		})();
 
-		userWebSocketConnector.connect(accessToken);
+		connectAndAssignHandlers(accessToken);
 
 		return () => {
 			userWebSocketConnector.disconnect();
