@@ -1,3 +1,4 @@
+import { chatWebSocketHandler } from '$lib/chat/ChatWebSocketHandler';
 import config from '$lib/config/config';
 import WebSocketConnector from '$lib/websocket/WebSocketConnector';
 
@@ -11,4 +12,5 @@ export const userWebSocketConnector: UserWebSocketConnector = new UserWebSocketC
 
 export function connectAndAssignHandlers(accessToken: string) {
 	userWebSocketConnector.connect(accessToken);
+	userWebSocketConnector.addHandler(chatWebSocketHandler);
 }
