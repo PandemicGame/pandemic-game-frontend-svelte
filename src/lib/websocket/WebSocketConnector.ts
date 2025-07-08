@@ -1,12 +1,20 @@
 import { writable, type Writable } from 'svelte/store';
 import type WebSocketData from './WebSocketData';
 import type WebSocketHandler from './WebSocketHandler';
-import { addTypeInfoPropertyRecursively, addTypeInfoRecursively } from './WebSocketMapper';
+import {
+	addTypeInfoPropertyRecursively,
+	addTypeInfoRecursively,
+	loadAllWebSocketDataTypes
+} from './WebSocketMapper';
 import type WebSocketMessage from './WebSocketMessage';
 import { WebSocketMessageType } from './WebSocketMessageType';
 
 export default abstract class WebSocketConnector {
 	public static readonly AUTH_SUCCESS_RESPONSE = 'AUTH_SUCCESS';
+
+	static {
+		loadAllWebSocketDataTypes();
+	}
 
 	protected socket: WebSocket | null = null;
 	protected url: string;
