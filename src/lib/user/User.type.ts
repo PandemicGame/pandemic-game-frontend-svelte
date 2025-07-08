@@ -1,8 +1,5 @@
-import WebSocketData from '$lib/websocket/WebSocketData';
+import ChatMessageSender from '$lib/chat/ChatMessageSender.type';
 import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo('User')
-export default class User extends WebSocketData {
-	id?: number;
-	name?: string;
-}
+export default class User extends ChatMessageSender {}
