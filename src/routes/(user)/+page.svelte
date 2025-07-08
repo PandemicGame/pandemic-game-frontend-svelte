@@ -1,4 +1,5 @@
 <script lang="ts">
+	import GlobalChat from '$lib/chat/GlobalChat.svelte';
 	import type User from '$lib/user/User.type';
 	import { userStore } from '$lib/user/UserStore';
 	import { onDestroy } from 'svelte';
@@ -22,4 +23,5 @@
 		data-sveltekit-preload-data="off">
 		Logout
 	</a>
+	<GlobalChat />
 </div>
