@@ -1,5 +1,6 @@
 <script lang="ts">
 	import GlobalChat from '$lib/chat/GlobalChat.svelte';
+	import ActiveUserList from '$lib/user/ActiveUserList.svelte';
 	import type User from '$lib/user/User.type';
 	import { userStore } from '$lib/user/UserStore';
 	import { onDestroy } from 'svelte';
@@ -30,7 +31,9 @@
 	</div>
 
 	<div class="grid grid-cols-[var(--larmcw)_1fr_var(--larmcw)] gap-x-4 overflow-hidden p-4">
-		<div></div>
+		<div>
+			<ActiveUserList />
+		</div>
 		<div></div>
 		<div class="h-full overflow-hidden">
 			<GlobalChat />
