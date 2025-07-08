@@ -4,7 +4,7 @@
 	let { users }: { users: User[] } = $props();
 </script>
 
-<div class="h-full w-full">
+<div class="h-full w-full overflow-hidden">
 	<ul class="overflow-y-scroll">
 		{#each users as user}
 			<li>
