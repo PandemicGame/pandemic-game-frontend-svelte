@@ -6,10 +6,13 @@ import type WebSocketMessage from './WebSocketMessage';
 import { WebSocketMessageType } from './WebSocketMessageType';
 
 export default abstract class WebSocketConnector {
+	public static readonly AUTH_SUCCESS_RESPONSE = 'AUTH_SUCCESS';
+
 	protected socket: WebSocket | null = null;
 	protected url: string;
 	protected handlers: WebSocketHandler[] = [];
 	public isConnected: Writable<boolean> = writable(false);
+	public isAuthenticated: Writable<boolean> = writable(false);
 
 	constructor(url: string) {
 		this.url = url;
@@ -49,6 +52,7 @@ export default abstract class WebSocketConnector {
 
 	protected clearSocket(): void {
 		this.isConnected.set(false);
+		this.isAuthenticated.set(false);
 		this.socket = null;
 	}
 
@@ -76,6 +80,11 @@ export default abstract class WebSocketConnector {
 	}
 
 	protected handleMessage(data: string): void {
+		if (this.isAuthSuccessMessage(data)) {
+			this.isAuthenticated.set(true);
+			return;
+		}
+
 		try {
 			const dataAsObject = JSON.parse(data);
 			const dataAsObjectWithCorrectType = addTypeInfoRecursively(dataAsObject);
@@ -83,6 +92,10 @@ export default abstract class WebSocketConnector {
 		} catch (err) {
 			console.error('[WebSocket] Failed to parse message:', err);
 		}
+	}
+
+	protected isAuthSuccessMessage(message: string) {
+		return message === WebSocketConnector.AUTH_SUCCESS_RESPONSE;
 	}
 
 	protected delegateMessageToHandlers(message: WebSocketData): void {
