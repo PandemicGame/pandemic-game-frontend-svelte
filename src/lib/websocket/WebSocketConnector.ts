@@ -71,11 +71,12 @@ export default abstract class WebSocketConnector {
 		});
 	}
 
-	public sendMessage(destination: string, payload: WebSocketData): void {
+	public sendMessage(destination: string, data: WebSocketData | string): void {
+		const payload = typeof data === 'string' ? data : addTypeInfoPropertyRecursively(data);
 		this.send({
 			messageType: WebSocketMessageType.MESSAGE,
 			destination: destination,
-			payload: addTypeInfoPropertyRecursively(payload)
+			payload: payload
 		});
 	}
 
