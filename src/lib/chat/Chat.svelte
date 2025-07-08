@@ -41,7 +41,7 @@
 	}
 </script>
 
-<div class="flex h-full w-full flex-col gap-4">
+<div class="flex h-full w-full flex-col gap-4 overflow-hidden">
 	<ul class="overflow-y-scroll">
 		{#each messages as message}
 			<li>
