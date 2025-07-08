@@ -3,6 +3,8 @@ import type ChatMessage from './ChatMessage.type';
 
 const chatMessageMap: Map<number, Writable<ChatMessage[]>> = new Map();
 
+export const globalChatIdStore = writable<number | undefined>();
+
 export function getChatStore(chatId: number): Writable<ChatMessage[]> {
 	if (!chatMessageMap.has(chatId)) {
 		chatMessageMap.set(chatId, writable([]));
