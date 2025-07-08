@@ -8,3 +8,7 @@ class UserWebSocketConnector extends WebSocketConnector {
 }
 
 export const userWebSocketConnector: UserWebSocketConnector = new UserWebSocketConnector();
+
+export function connectAndAssignHandlers(accessToken: string) {
+	userWebSocketConnector.connect(accessToken);
+}
