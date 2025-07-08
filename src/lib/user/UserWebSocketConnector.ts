@@ -1,6 +1,7 @@
 import { chatWebSocketHandler } from '$lib/chat/ChatWebSocketHandler';
 import config from '$lib/config/config';
 import WebSocketConnector from '$lib/websocket/WebSocketConnector';
+import { userWebSocketHandler } from './UserWebSocketHandler';
 
 class UserWebSocketConnector extends WebSocketConnector {
 	constructor() {
@@ -12,5 +13,6 @@ export const userWebSocketConnector: UserWebSocketConnector = new UserWebSocketC
 
 export function connectAndAssignHandlers(accessToken: string) {
 	userWebSocketConnector.connect(accessToken);
+	userWebSocketConnector.addHandler(userWebSocketHandler);
 	userWebSocketConnector.addHandler(chatWebSocketHandler);
 }
