@@ -1,5 +1,5 @@
 import Service from '$lib/Service';
-import type User from './User';
+import type User from './User.type';
 
 class UserService extends Service {
 	private readonly throwError = () => {

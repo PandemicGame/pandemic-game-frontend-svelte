@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type User from '$lib/user/User';
+	import type User from '$lib/user/User.type';
 	import { userStore } from '$lib/user/UserStore';
 	import { onDestroy } from 'svelte';
 

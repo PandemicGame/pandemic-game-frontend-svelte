@@ -63,3 +63,11 @@ function remapPropertiesOfObject(obj: any, mapper: (val: any) => any) {
 	}
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
+
+export async function loadAllWebSocketDataTypes() {
+	const modules = import.meta.glob('../**/*.type.ts');
+
+	for (const path in modules) {
+		await modules[path]();
+	}
+}
