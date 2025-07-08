@@ -13,6 +13,7 @@
 	});
 </script>
 
-<div class="h-full w-full">
+<div class="grid h-full w-full grid-rows-[auto_1fr] overflow-hidden">
+	<h2 class="text-xl font-bold">Active Users</h2>
 	<UserList {users} />
 </div>
