@@ -17,9 +17,9 @@
 		const unsubscribeWaitForWS = userWebSocketConnector.isAuthenticated.subscribe((c) => {
 			if (c) {
 				chatService.fetchGlobalChat();
-				unsubscribeWaitForWS();
 			}
 		});
+		return () => unsubscribeWaitForWS();
 	});
 </script>
 
