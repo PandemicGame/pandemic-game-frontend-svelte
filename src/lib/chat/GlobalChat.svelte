@@ -23,9 +23,8 @@
 	});
 </script>
 
-<div class="grid h-full w-full grid-rows-[auto_1fr] overflow-hidden">
-	<h2 class="text-xl font-bold">Global Chat</h2>
+<div class="h-full w-full overflow-hidden">
 	{#if globalChatId}
-		<Chat chatId={globalChatId} chatService={userChatService} />
+		<Chat heading={'Global Chat'} chatId={globalChatId} chatService={userChatService} />
 	{/if}
 </div>

@@ -5,7 +5,15 @@
 	import type ChatService from './ChatService';
 	import { getChatStore } from './ChatStore';
 
-	let { chatId, chatService }: { chatId: number; chatService: ChatService } = $props();
+	let {
+		heading,
+		chatId,
+		chatService
+	}: {
+		heading: string;
+		chatId: number;
+		chatService: ChatService;
+	} = $props();
 
 	let messages = $state<ChatMessage[]>([]);
 
@@ -41,15 +49,24 @@
 	}
 </script>
 
-<div class="flex h-full w-full flex-col gap-4 overflow-hidden">
-	<ul class="overflow-y-scroll">
+<div class="grid h-full w-full grid-rows-[auto_1fr_auto] gap-4 overflow-hidden">
+	<h2 class="text-xl font-bold">{heading}</h2>
+
+	<ul class="w-full overflow-y-scroll">
 		{#each messages as message}
-			<li>
-				<strong>
-					{getChatMessageSenderName(message)}
-					[{message.createdAt?.toLocaleString()}]:
+			<li class="flex w-full flex-row gap-2">
+				<strong class="flex max-w-1/2 min-w-1/4">
+					<span class="min-w-0 flex-auto truncate">
+						{getChatMessageSenderName(message)}
+					</span>
+					<span class="shrink-0">
+						[{message.createdAt?.toLocaleString()}]
+					</span>
+					<span class="shrink-0">:</span>
 				</strong>
-				{message.message}
+				<span>
+					{message.message}
+				</span>
 			</li>
 		{/each}
 	</ul>
