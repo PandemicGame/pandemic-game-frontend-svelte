@@ -1,3 +1,4 @@
+import { goto } from '$app/navigation';
 import WebSocketHandler from '$lib/websocket/WebSocketHandler';
 import Lobby from './Lobby.type';
 import LobbyAndAccessTokenHolder from './LobbyAndAccessTokenHolder.type';
@@ -15,6 +16,7 @@ class LobbyWebSocketHandler extends WebSocketHandler {
 			if (data.accessToken && data.lobby) {
 				lobbyService.storeAccessToken(data.accessToken);
 				currentLobby.set(data.lobby);
+				goto('/lobby');
 			}
 		}
 	}

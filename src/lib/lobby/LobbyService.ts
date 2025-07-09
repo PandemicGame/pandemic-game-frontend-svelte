@@ -25,6 +25,16 @@ class LobbyService extends Service {
 		}
 	}
 
+	public hasAccessToken(): boolean {
+		return this.getAccessToken() !== undefined;
+	}
+
+	public getAccessToken(): string | undefined {
+		if (browser) {
+			return sessionStorage.getItem(LobbyService.LOBBY_MEMBER_ACCESS_TOKEN_KEY) ?? undefined;
+		}
+	}
+
 	public addLobbyOwnerToLobby(lobby: Lobby): void {
 		if (typeof lobby.owner === 'number') {
 			const membersById = this.createIdToLobbyMemberMap(lobby.members ?? []);
