@@ -14,9 +14,9 @@
 	});
 </script>
 
-<div class="flex flex-row justify-end px-4 py-2">
-	<div class="flex flex-col gap-2">
-		<span>You are logged in as: {user?.name}.</span>
+<div class="flex w-full flex-row justify-end px-4 py-2">
+	<div class="flex max-w-1/5 flex-col gap-2">
+		<span class="truncate">You are logged in as: {user?.name}.</span>
 		<a
 			href="/logout"
 			class="btn preset-filled-error-500 ml-auto font-bold"
