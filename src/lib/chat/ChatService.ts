@@ -1,17 +1,20 @@
 import Service from '$lib/Service';
-import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
+import type WebSocketConnector from '$lib/websocket/WebSocketConnector';
 import { addTypeInfo } from '$lib/websocket/WebSocketMapper';
 import ChatMessage from './ChatMessage.type';
 import type ChatMessageSender from './ChatMessageSender.type';
-import GlobalChat from './GlobalChat.type';
 
-class ChatService extends Service {
+export default abstract class ChatService extends Service {
+	constructor(protected readonly webSocketConnector: WebSocketConnector) {
+		super();
+	}
+
 	public postMessage(chatId: number, message: string): void {
 		const chatMessage = {
 			chatId: chatId,
 			message: message
 		};
-		userWebSocketConnector.sendMessage('/chat/send', addTypeInfo(chatMessage, ChatMessage));
+		this.webSocketConnector.sendMessage('/chat/send', addTypeInfo(chatMessage, ChatMessage));
 	}
 
 	public parseChatMessageDate(message: ChatMessage): void {
@@ -34,10 +37,4 @@ class ChatService extends Service {
 	): Map<number, ChatMessageSender> {
 		return new Map(senders.filter(this.hasId).map((sender) => [sender.id, sender]));
 	}
-
-	public fetchGlobalChat() {
-		userWebSocketConnector.sendMessage('/chat/fetch', GlobalChat.GLOBAL_CHAT_IDENTIFIER);
-	}
 }
-
-export const chatService: ChatService = new ChatService();

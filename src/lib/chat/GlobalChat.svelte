@@ -2,8 +2,8 @@
 	import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
 	import { onDestroy, onMount } from 'svelte';
 	import Chat from './Chat.svelte';
-	import { chatService } from './ChatService';
 	import { globalChatIdStore } from './ChatStore';
+	import { userChatService } from './UserChatService';
 
 	let globalChatId: number | undefined = $state();
 
@@ -16,7 +16,7 @@
 	onMount(() => {
 		const unsubscribeWaitForWS = userWebSocketConnector.isAuthenticated.subscribe((c) => {
 			if (c) {
-				chatService.fetchGlobalChat();
+				userChatService.fetchGlobalChat();
 			}
 		});
 		return () => unsubscribeWaitForWS();
@@ -26,6 +26,6 @@
 <div class="grid h-full w-full grid-rows-[auto_1fr] overflow-hidden">
 	<h2 class="text-xl font-bold">Global Chat</h2>
 	{#if globalChatId}
-		<Chat chatId={globalChatId} />
+		<Chat chatId={globalChatId} chatService={userChatService} />
 	{/if}
 </div>
