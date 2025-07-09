@@ -9,6 +9,7 @@ export default class Lobby extends WebSocketData {
 	name?: string;
 	owner?: number | UserLobbyMember;
 	members?: LobbyMember[];
+	chat?: number;
 
 	public getOwnerName(): string {
 		if (this.owner instanceof UserLobbyMember) {

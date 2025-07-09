@@ -11,5 +11,6 @@ class LobbyWebSocketConnector extends WebSocketConnector {
 export const lobbyWebSocketConnector: LobbyWebSocketConnector = new LobbyWebSocketConnector();
 
 export async function loadHandlers(): Promise<WebSocketHandler[]> {
-	return [];
+	const { chatWebSocketHandler } = await import('$lib/chat/ChatWebSocketHandler');
+	return [chatWebSocketHandler];
 }
