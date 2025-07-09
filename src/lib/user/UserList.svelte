@@ -7,7 +7,7 @@
 <div class="h-full w-full overflow-hidden">
 	<ul class="overflow-y-scroll">
 		{#each users as user}
-			<li>
+			<li class="truncate">
 				{user.name}
 			</li>
 		{/each}
