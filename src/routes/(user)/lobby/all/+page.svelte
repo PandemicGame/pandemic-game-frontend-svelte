@@ -25,6 +25,13 @@
 		});
 		return () => unsubscribeWaitForWS();
 	});
+
+	function joinLobby(lobby: Lobby) {
+		const id = lobby.id;
+		if (id) {
+			lobbyService.joinLobby(id);
+		}
+	}
 </script>
 
 <div class="flex h-screen w-screen flex-col justify-between gap-4 px-8 py-4">
@@ -41,7 +48,7 @@
 				</thead>
 				<tbody class="[&>tr]:hover:preset-tonal-primary">
 					{#each lobbies as lobby, i}
-						<tr>
+						<tr onclick={() => joinLobby(lobby)}>
 							<td>{lobby.name}</td>
 							<td>{lobby.getOwnerName()}</td>
 							<td class="text-right">

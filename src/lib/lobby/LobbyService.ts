@@ -15,6 +15,10 @@ class LobbyService extends Service {
 		userWebSocketConnector.sendMessage('/lobby/create', name);
 	}
 
+	public joinLobby(id: number) {
+		userWebSocketConnector.sendMessage('/lobby/join', `${id}`);
+	}
+
 	public storeAccessToken(accessToken: string): void {
 		if (browser) {
 			sessionStorage.setItem(LobbyService.LOBBY_MEMBER_ACCESS_TOKEN_KEY, accessToken);
