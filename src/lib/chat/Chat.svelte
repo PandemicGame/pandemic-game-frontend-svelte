@@ -2,10 +2,10 @@
 	import { onDestroy } from 'svelte';
 	import type ChatMessage from './ChatMessage.type';
 	import ChatMessageSender from './ChatMessageSender.type';
-	import { chatService } from './ChatService';
+	import type ChatService from './ChatService';
 	import { getChatStore } from './ChatStore';
 
-	let { chatId }: { chatId: number } = $props();
+	let { chatId, chatService }: { chatId: number; chatService: ChatService } = $props();
 
 	let messages = $state<ChatMessage[]>([]);
 
