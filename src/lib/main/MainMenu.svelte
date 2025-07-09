@@ -8,7 +8,7 @@
 	</div>
 	<div class="flex flex-col gap-10">
 		<a
-			href="/"
+			href="/lobby/create"
 			class="btn preset-filled-primary-500 text-4xl"
 			draggable="false"
 			data-sveltekit-preload-data="off">Create Lobby</a>
