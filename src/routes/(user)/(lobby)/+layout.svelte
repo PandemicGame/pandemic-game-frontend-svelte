@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { lobbyService } from '$lib/lobby/LobbyService';
-	import {
-		connectAndAssignHandlers,
-		lobbyWebSocketConnector
-	} from '$lib/lobby/LobbyWebSocketConnector';
+	import { loadHandlers, lobbyWebSocketConnector } from '$lib/lobby/LobbyWebSocketConnector';
+	import { connectAndAssignHandlers } from '$lib/websocket/WebSocketConnector';
 	import { onMount } from 'svelte';
 
 	let { children } = $props();
@@ -13,7 +11,13 @@
 		const accessToken = lobbyService.getAccessToken();
 
 		if (accessToken) {
-			connectAndAssignHandlers(accessToken);
+			(async () => {
+				connectAndAssignHandlers(
+					lobbyWebSocketConnector,
+					accessToken,
+					await loadHandlers()
+				);
+			})();
 		} else {
 			goto('/lobby/all');
 		}

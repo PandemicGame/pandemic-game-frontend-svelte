@@ -115,3 +115,14 @@ export default abstract class WebSocketConnector {
 		this.handlers.push(handler);
 	}
 }
+
+export function connectAndAssignHandlers(
+	connector: WebSocketConnector,
+	accessToken: string,
+	handlers: WebSocketHandler[]
+) {
+	connector.connect(accessToken);
+	for (const handler of handlers) {
+		connector.addHandler(handler);
+	}
+}
