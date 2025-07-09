@@ -13,7 +13,7 @@
 			draggable="false"
 			data-sveltekit-preload-data="off">Create Lobby</a>
 		<a
-			href="/"
+			href="/lobby/all"
 			class="btn preset-filled-primary-500 text-4xl"
 			draggable="false"
 			data-sveltekit-preload-data="off">Join Lobby</a>
