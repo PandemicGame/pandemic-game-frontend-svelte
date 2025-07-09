@@ -1,5 +1,6 @@
 import config from '$lib/config/config';
 import WebSocketConnector from '$lib/websocket/WebSocketConnector';
+import type WebSocketHandler from '$lib/websocket/WebSocketHandler';
 
 class LobbyWebSocketConnector extends WebSocketConnector {
 	constructor() {
@@ -9,6 +10,6 @@ class LobbyWebSocketConnector extends WebSocketConnector {
 
 export const lobbyWebSocketConnector: LobbyWebSocketConnector = new LobbyWebSocketConnector();
 
-export function connectAndAssignHandlers(accessToken: string) {
-	lobbyWebSocketConnector.connect(accessToken);
+export async function loadHandlers(): Promise<WebSocketHandler[]> {
+	return [];
 }

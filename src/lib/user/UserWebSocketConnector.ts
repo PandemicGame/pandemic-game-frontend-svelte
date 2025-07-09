@@ -1,8 +1,6 @@
-import { chatWebSocketHandler } from '$lib/chat/ChatWebSocketHandler';
 import config from '$lib/config/config';
-import { lobbyWebSocketHandler } from '$lib/lobby/LobbyWebSocketHandler';
 import WebSocketConnector from '$lib/websocket/WebSocketConnector';
-import { userWebSocketHandler } from './UserWebSocketHandler';
+import type WebSocketHandler from '$lib/websocket/WebSocketHandler';
 
 class UserWebSocketConnector extends WebSocketConnector {
 	constructor() {
@@ -12,9 +10,9 @@ class UserWebSocketConnector extends WebSocketConnector {
 
 export const userWebSocketConnector: UserWebSocketConnector = new UserWebSocketConnector();
 
-export function connectAndAssignHandlers(accessToken: string) {
-	userWebSocketConnector.connect(accessToken);
-	userWebSocketConnector.addHandler(userWebSocketHandler);
-	userWebSocketConnector.addHandler(chatWebSocketHandler);
-	userWebSocketConnector.addHandler(lobbyWebSocketHandler);
+export async function loadHandlers(): Promise<WebSocketHandler[]> {
+	const { chatWebSocketHandler } = await import('$lib/chat/ChatWebSocketHandler');
+	const { lobbyWebSocketHandler } = await import('$lib/lobby/LobbyWebSocketHandler');
+	const { userWebSocketHandler } = await import('./UserWebSocketHandler');
+	return [chatWebSocketHandler, lobbyWebSocketHandler, userWebSocketHandler];
 }

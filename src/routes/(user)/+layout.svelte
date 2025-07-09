@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { userService } from '$lib/user/UserService';
 	import { userStore } from '$lib/user/UserStore';
-	import {
-		connectAndAssignHandlers,
-		userWebSocketConnector
-	} from '$lib/user/UserWebSocketConnector';
+	import { loadHandlers, userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
+	import { connectAndAssignHandlers } from '$lib/websocket/WebSocketConnector.js';
 	import { onMount } from 'svelte';
 
 	let { children, data } = $props();
@@ -15,9 +13,9 @@
 		(async () => {
 			const user = await userService.getUserInfo(accessToken);
 			userStore.set(user);
-		})();
 
-		connectAndAssignHandlers(accessToken);
+			connectAndAssignHandlers(userWebSocketConnector, accessToken, await loadHandlers());
+		})();
 
 		return () => {
 			userWebSocketConnector.disconnect();
