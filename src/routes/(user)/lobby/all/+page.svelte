@@ -35,10 +35,10 @@
 </script>
 
 <div class="flex h-screen w-screen flex-col justify-between gap-4 px-8 py-4">
-	<div class="flex flex-col">
+	<div class="flex w-full flex-col">
 		<h1 class="text-center text-2xl">All Lobbies</h1>
-		<div class="table-wrap">
-			<table class="table caption-bottom">
+		<div class="table-wrap w-full">
+			<table class="table w-full table-fixed">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -46,11 +46,13 @@
 						<th class="!text-right">Members</th>
 					</tr>
 				</thead>
-				<tbody class="[&>tr]:hover:preset-tonal-primary">
+				<tbody class="[&>tr]:hover:preset-tonal-primary w-full overflow-hidden">
 					{#each lobbies as lobby, i}
-						<tr onclick={() => joinLobby(lobby)}>
+						<tr class="w-full" onclick={() => joinLobby(lobby)}>
 							<td>{lobby.name}</td>
-							<td>{lobby.getOwnerName()}</td>
+							<td>
+								<div class="truncate">{lobby.getOwnerName()}</div>
+							</td>
 							<td class="text-right">
 								<Tooltip
 									open={lobbyMemberTooltipOpenStates[i]}
