@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
+	import NameableList from '../util/NameableList.svelte';
 	import type User from './User.type';
-	import UserList from './UserList.svelte';
 	import { activeUsers } from './UserStore';
 
 	let users: User[] = $state<User[]>([]);
@@ -15,5 +15,5 @@
 
 <div class="grid h-full w-full grid-rows-[auto_1fr] overflow-hidden">
 	<h2 class="text-xl font-bold">Active Users</h2>
-	<UserList {users} />
+	<NameableList nameables={users} />
 </div>
