@@ -18,6 +18,8 @@ class LobbyWebSocketHandler extends WebSocketHandler {
 				currentLobby.set(data.lobby);
 				goto('/lobby');
 			}
+		} else if (data instanceof Lobby) {
+			currentLobby.set(data);
 		}
 	}
 }
