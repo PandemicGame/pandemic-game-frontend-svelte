@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type User from './User.type';
+	import type Nameable from './Nameable';
 
-	let { users }: { users: User[] } = $props();
+	let { nameables }: { nameables: Nameable[] } = $props();
 </script>
 
 <div class="h-full w-full overflow-hidden">
 	<ul class="overflow-y-scroll">
-		{#each users as user}
+		{#each nameables as nameable}
 			<li class="truncate">
-				{user.name}
+				{nameable.name}
 			</li>
 		{/each}
 	</ul>
