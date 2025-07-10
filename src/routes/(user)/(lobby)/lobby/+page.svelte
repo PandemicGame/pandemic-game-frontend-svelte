@@ -3,6 +3,7 @@
 	import { lobbyChatService } from '$lib/chat/LobbyChatService';
 	import Lobby from '$lib/lobby/Lobby.type';
 	import { currentLobby } from '$lib/lobby/LobbyStore';
+	import NameableList from '$lib/util/NameableList.svelte';
 
 	let lobby = $state<Lobby | undefined>();
 
@@ -12,7 +13,11 @@
 <div class="grid h-screen w-screen grid-rows-[auto_1fr_auto] gap-4 p-4">
 	<h1 class="text-center text-4xl">{lobby?.name}</h1>
 	<div class="grid w-full grid-cols-3 gap-2">
-		<div></div>
+		<div>
+			{#if lobby?.members}
+				<NameableList nameables={lobby.members} />
+			{/if}
+		</div>
 		<div></div>
 		<div class="h-full w-full">
 			{#if lobby?.chat}
