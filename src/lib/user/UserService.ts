@@ -14,7 +14,7 @@ class UserService extends Service {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(accessToken)
+				body: accessToken
 			},
 			this.throwError,
 			this.throwError
