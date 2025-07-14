@@ -3,7 +3,7 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 import type LobbyMember from './LobbyMember.type';
 import UserLobbyMember from './UserLobbyMember.type';
 
-@TypeInfo('Lobby')
+@TypeInfo()
 export default class Lobby extends WebSocketData {
 	id?: number;
 	name?: string;

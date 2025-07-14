@@ -8,9 +8,9 @@ function registerType(className: string, clazz: new () => WebSocketData) {
 	constructorToClassNameAssociation.set(clazz, className);
 }
 
-export function TypeInfo(className: string) {
+export function TypeInfo() {
 	return function (target: new () => WebSocketData) {
-		registerType(className, target);
+		registerType(target.name, target);
 	};
 }
 
