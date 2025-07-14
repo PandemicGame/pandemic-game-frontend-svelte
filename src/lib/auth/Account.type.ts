@@ -1,7 +1,7 @@
 import WebSocketData from '$lib/websocket/WebSocketData';
 import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
-@TypeInfo('Account')
+@TypeInfo()
 export default class Account extends WebSocketData {
 	firstName?: string;
 	lastName?: string;
