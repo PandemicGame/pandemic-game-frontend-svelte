@@ -9,6 +9,7 @@ class UserWebSocketConnector extends WebSocketConnector {
 	}
 
 	protected handleClose(): void {
+		this.handlers = [];
 		goto('/');
 	}
 }
