@@ -44,6 +44,7 @@ export default abstract class WebSocketConnector {
 		this.socket.addEventListener('close', () => {
 			this.clearSocket();
 			console.log(`[WebSocket] Disconnected from ${this.url}`);
+			this.handleClose();
 		});
 
 		this.socket.addEventListener('error', (e) => {
@@ -114,6 +115,8 @@ export default abstract class WebSocketConnector {
 	public addHandler(handler: WebSocketHandler): void {
 		this.handlers.push(handler);
 	}
+
+	protected abstract handleClose(): void;
 }
 
 export function connectAndAssignHandlers(
