@@ -1,3 +1,4 @@
+import { goto } from '$app/navigation';
 import config from '$lib/config/config';
 import WebSocketConnector from '$lib/websocket/WebSocketConnector';
 import type WebSocketHandler from '$lib/websocket/WebSocketHandler';
@@ -5,6 +6,10 @@ import type WebSocketHandler from '$lib/websocket/WebSocketHandler';
 class UserWebSocketConnector extends WebSocketConnector {
 	constructor() {
 		super(`${config.webSocketUrl}/user`);
+	}
+
+	protected handleClose(): void {
+		goto('/');
 	}
 }
 
