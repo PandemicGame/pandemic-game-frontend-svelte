@@ -34,6 +34,8 @@
 			href="/"
 			class="btn preset-filled-error-500"
 			draggable="false"
-			data-sveltekit-preload-data="off">Leave Lobby</a>
+			data-sveltekit-preload-data="off">
+			Leave Lobby
+		</a>
 	</div>
 </div>
