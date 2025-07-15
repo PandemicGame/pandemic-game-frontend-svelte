@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { lobbyService } from '$lib/lobby/LobbyService';
+	import { onMount } from 'svelte';
+
+	let nameInputField = $state<HTMLInputElement | undefined>();
+
+	onMount(() => nameInputField?.focus());
 
 	let lobbyName = $state<string>('');
 
@@ -30,6 +35,7 @@
 				type="text"
 				placeholder="Name"
 				bind:value={lobbyName}
+				bind:this={nameInputField}
 				onkeydown={createLobbyOnEnterPressed} />
 		</label>
 		<div class="flex flex-row justify-end gap-2">
