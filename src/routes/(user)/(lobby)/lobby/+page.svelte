@@ -9,6 +9,8 @@
 	let lobby = $state<Lobby | undefined>();
 
 	currentLobby.subscribe((l) => (lobby = l));
+
+	let isGameStartable = $derived<boolean>((lobby?.members?.length ?? 0) >= 2);
 </script>
 
 <div class="grid h-screen w-screen grid-rows-[auto_1fr_auto] gap-4 p-4">
@@ -27,7 +29,10 @@
 		</div>
 	</div>
 	<div class="flex flex-row justify-end gap-2">
-		<button class="btn preset-filled-primary-500" onclick={lobbyService.startGame}>
+		<button
+			class="btn preset-filled-primary-500"
+			onclick={lobbyService.startGame}
+			disabled={!isGameStartable}>
 			Start Game
 		</button>
 		<a
