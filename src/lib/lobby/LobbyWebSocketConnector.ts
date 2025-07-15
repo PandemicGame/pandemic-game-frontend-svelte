@@ -9,6 +9,7 @@ class LobbyWebSocketConnector extends WebSocketConnector {
 	}
 
 	protected handleClose(): void {
+		this.handlers = [];
 		goto('/');
 	}
 }
