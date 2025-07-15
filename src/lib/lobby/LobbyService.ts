@@ -8,7 +8,7 @@ class LobbyService extends Service {
 	public static readonly LOBBY_MEMBER_ACCESS_TOKEN_KEY = 'lobbyMemberAccessToken';
 
 	public fetchAllLobbies() {
-		userWebSocketConnector.sendMessage('/lobby/fetch', 'ALL');
+		userWebSocketConnector.sendMessage('/lobby/fetch');
 	}
 
 	public createLobby(name: string) {

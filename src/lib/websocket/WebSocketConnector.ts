@@ -80,8 +80,8 @@ export default abstract class WebSocketConnector {
 		});
 	}
 
-	public sendMessage(destination: string, data: WebSocketData | string): void {
-		const payload = typeof data === 'string' ? data : addTypeInfoPropertyRecursively(data);
+	public sendMessage(destination: string, data?: WebSocketData | string): void {
+		const payload = typeof data === 'object' ? addTypeInfoPropertyRecursively(data) : data;
 		this.send({
 			messageType: WebSocketMessageType.MESSAGE,
 			destination: destination,
