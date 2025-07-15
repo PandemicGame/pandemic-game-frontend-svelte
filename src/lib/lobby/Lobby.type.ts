@@ -17,4 +17,14 @@ export default class Lobby extends WebSocketData {
 		}
 		return '';
 	}
+
+	public isOwner(lobbyMember: LobbyMember): boolean {
+		if (typeof this.owner === 'number') {
+			return this.owner === lobbyMember.id;
+		} else if (this.owner instanceof UserLobbyMember) {
+			return this.owner.id === lobbyMember.id;
+		} else {
+			return false;
+		}
+	}
 }

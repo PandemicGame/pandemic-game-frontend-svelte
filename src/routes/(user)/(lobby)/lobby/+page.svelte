@@ -3,14 +3,25 @@
 	import { lobbyChatService } from '$lib/chat/LobbyChatService';
 	import Lobby from '$lib/lobby/Lobby.type';
 	import { lobbyService } from '$lib/lobby/LobbyService';
-	import { currentLobby } from '$lib/lobby/LobbyStore';
+	import { currentLobby, currentLobbyMember } from '$lib/lobby/LobbyStore';
+	import UserLobbyMember from '$lib/lobby/UserLobbyMember.type';
 	import NameableList from '$lib/util/NameableList.svelte';
+	import { onDestroy } from 'svelte';
 
 	let lobby = $state<Lobby | undefined>();
 
-	currentLobby.subscribe((l) => (lobby = l));
+	const unsubsribeLobby = currentLobby.subscribe((l) => (lobby = l));
 
 	let isGameStartable = $derived<boolean>((lobby?.members?.length ?? 0) >= 2);
+
+	let lobbyMember = $state<UserLobbyMember | undefined>();
+
+	const unsubscribeLobbyMember = currentLobbyMember.subscribe((l) => (lobbyMember = l));
+
+	onDestroy(() => {
+		unsubsribeLobby();
+		unsubscribeLobbyMember();
+	});
 </script>
 
 <div class="grid h-screen w-screen grid-rows-[auto_1fr_auto] gap-4 p-4">
@@ -29,12 +40,14 @@
 		</div>
 	</div>
 	<div class="flex flex-row justify-end gap-2">
-		<button
-			class="btn preset-filled-primary-500"
-			onclick={lobbyService.startGame}
-			disabled={!isGameStartable}>
-			Start Game
-		</button>
+		{#if lobbyMember && lobby?.isOwner(lobbyMember)}
+			<button
+				class="btn preset-filled-primary-500"
+				onclick={lobbyService.startGame}
+				disabled={!isGameStartable}>
+				Start Game
+			</button>
+		{/if}
 		<a
 			href="/"
 			class="btn preset-filled-error-500"
