@@ -3,6 +3,7 @@ import Service from '$lib/Service';
 import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
 import type Lobby from './Lobby.type';
 import type LobbyMember from './LobbyMember.type';
+import { lobbyWebSocketConnector } from './LobbyWebSocketConnector';
 
 class LobbyService extends Service {
 	public static readonly LOBBY_MEMBER_ACCESS_TOKEN_KEY = 'lobbyMemberAccessToken';
@@ -44,6 +45,10 @@ class LobbyService extends Service {
 
 	public createIdToLobbyMemberMap(members: LobbyMember[]): Map<number, LobbyMember> {
 		return new Map(members.filter(this.hasId).map((members) => [members.id, members]));
+	}
+
+	public startGame(): void {
+		lobbyWebSocketConnector.sendMessage('/lobby/start-game');
 	}
 }
 

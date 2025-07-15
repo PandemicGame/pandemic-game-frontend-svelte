@@ -2,6 +2,7 @@
 	import Chat from '$lib/chat/Chat.svelte';
 	import { lobbyChatService } from '$lib/chat/LobbyChatService';
 	import Lobby from '$lib/lobby/Lobby.type';
+	import { lobbyService } from '$lib/lobby/LobbyService';
 	import { currentLobby } from '$lib/lobby/LobbyStore';
 	import NameableList from '$lib/util/NameableList.svelte';
 
@@ -26,6 +27,9 @@
 		</div>
 	</div>
 	<div class="flex flex-row justify-end gap-2">
+		<button class="btn preset-filled-primary-500" onclick={lobbyService.startGame}>
+			Start Game
+		</button>
 		<a
 			href="/"
 			class="btn preset-filled-error-500"
