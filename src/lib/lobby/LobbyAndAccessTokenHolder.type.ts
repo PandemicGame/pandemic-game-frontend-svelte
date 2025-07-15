@@ -6,4 +6,5 @@ import type Lobby from './Lobby.type';
 export default class LobbyAndAccessTokenHolder extends WebSocketData {
 	lobby?: Lobby;
 	accessToken?: string;
+	member?: number;
 }

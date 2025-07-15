@@ -3,7 +3,7 @@ import WebSocketHandler from '$lib/websocket/WebSocketHandler';
 import Lobby from './Lobby.type';
 import LobbyAndAccessTokenHolder from './LobbyAndAccessTokenHolder.type';
 import { lobbyService } from './LobbyService';
-import { currentLobby, lobbyStore } from './LobbyStore';
+import { currentLobby, currentLobbyMember, lobbyStore } from './LobbyStore';
 
 class LobbyWebSocketHandler extends WebSocketHandler {
 	public handle(data: unknown): void {
@@ -13,9 +13,10 @@ class LobbyWebSocketHandler extends WebSocketHandler {
 				lobbyStore.set(data);
 			}
 		} else if (data instanceof LobbyAndAccessTokenHolder) {
-			if (data.accessToken && data.lobby) {
+			if (data.accessToken && data.lobby && data.member) {
 				lobbyService.storeAccessToken(data.accessToken);
 				currentLobby.set(data.lobby);
+				currentLobbyMember.set(data.lobby.members?.find((m) => m.id === data.member));
 				goto('/lobby');
 			}
 		} else if (data instanceof Lobby) {
