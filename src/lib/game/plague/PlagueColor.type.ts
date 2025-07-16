@@ -6,4 +6,8 @@ export default class PlagueColor extends WebSocketData {
 	r?: number;
 	g?: number;
 	b?: number;
+
+	public getCssValue(): string {
+		return `rgb(${this.r}, ${this.g}, ${this.b})`;
+	}
 }

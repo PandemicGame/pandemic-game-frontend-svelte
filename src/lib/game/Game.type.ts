@@ -12,4 +12,8 @@ export default class Game extends WebSocketData {
 	playersInTurnOrder?: Player[];
 	board?: Board;
 	plagues?: Plague[];
+
+	public getPlagueForCode(code: string): Plague | undefined {
+		return this.plagues?.find((p) => p.code === code);
+	}
 }
