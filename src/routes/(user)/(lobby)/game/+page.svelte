@@ -1,10 +1,24 @@
 <script lang="ts">
+	import Board from '$lib/game/board/Board.svelte';
+	import Game from '$lib/game/Game.type';
+	import { currentGame } from '$lib/game/GameStore';
+	import { onDestroy } from 'svelte';
+
+	let game = $state<Game | undefined>();
+
+	const unsubscribe = currentGame.subscribe((g) => (game = g));
+
+	onDestroy(() => unsubscribe());
+
+	let boardComponent = $state<Board | undefined>();
 </script>
 
 <div class="grid h-screen w-screen grid-cols-[1fr_auto]">
 	<div class="grid grid-cols-[auto_1fr_auto] grid-rows-[auto_1fr_auto_auto]">
 		<div class="z-10 col-[1_/_span_3] row-[1_/_span_3]">
-			<div class="h-full w-full bg-black">Board</div>
+			{#if game}
+				<Board {game} bind:this={boardComponent} />
+			{/if}
 		</div>
 		<div class="z-20 col-3 row-1">
 			<div class="size-40 bg-black">Plague Cubes</div>

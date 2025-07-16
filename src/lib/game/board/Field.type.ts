@@ -9,4 +9,8 @@ export default class Field extends WebSocketData {
 	ycoordinate?: number;
 	plagueCode?: string;
 	connectionIds?: number[];
+
+	public hasCoordinates(): boolean {
+		return this.xcoordinate !== undefined && this.ycoordinate !== undefined;
+	}
 }
