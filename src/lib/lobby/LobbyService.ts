@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import type GameOptions from '$lib/game/GameOptions.type';
 import Service from '$lib/Service';
 import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
 import type Lobby from './Lobby.type';
@@ -45,6 +46,10 @@ class LobbyService extends Service {
 
 	public createIdToLobbyMemberMap(members: LobbyMember[]): Map<number, LobbyMember> {
 		return new Map(members.filter(this.hasId).map((members) => [members.id, members]));
+	}
+
+	public updateGameOptions(gameOptions: GameOptions): void {
+		lobbyWebSocketConnector.sendMessage('/lobby/game-options', gameOptions);
 	}
 
 	public startGame(): void {

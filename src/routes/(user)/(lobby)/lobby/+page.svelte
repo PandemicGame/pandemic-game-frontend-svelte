@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Chat from '$lib/chat/Chat.svelte';
 	import { lobbyChatService } from '$lib/chat/LobbyChatService';
+	import GameOptions from '$lib/game/GameOptions.svelte';
 	import Lobby from '$lib/lobby/Lobby.type';
 	import { lobbyService } from '$lib/lobby/LobbyService';
 	import { currentLobby, currentLobbyMember } from '$lib/lobby/LobbyStore';
@@ -32,7 +33,11 @@
 				<NameableList nameables={lobby.members} />
 			{/if}
 		</div>
-		<div></div>
+		<div>
+			{#if lobby}
+				<GameOptions {lobby} />
+			{/if}
+		</div>
 		<div class="h-full w-full">
 			{#if lobby?.chat}
 				<Chat heading={'Lobby Chat'} chatId={lobby?.chat} chatService={lobbyChatService} />

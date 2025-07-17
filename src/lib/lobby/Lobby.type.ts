@@ -1,5 +1,6 @@
 import WebSocketData from '$lib/websocket/WebSocketData';
 import { TypeInfo } from '$lib/websocket/WebSocketMapper';
+import GameOptions from '../game/GameOptions.type';
 import type LobbyMember from './LobbyMember.type';
 import UserLobbyMember from './UserLobbyMember.type';
 
@@ -10,6 +11,7 @@ export default class Lobby extends WebSocketData {
 	owner?: number | UserLobbyMember;
 	members?: LobbyMember[];
 	chat?: number;
+	gameOptions?: GameOptions;
 
 	public getOwnerName(): string {
 		if (this.owner instanceof UserLobbyMember) {
