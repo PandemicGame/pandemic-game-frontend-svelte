@@ -1,9 +1,10 @@
+import type Color from '$lib/util/Color.type';
 import WebSocketData from '$lib/websocket/WebSocketData';
 import { TypeInfo } from '$lib/websocket/WebSocketMapper';
-import type Role from '../role/Role.type';
 
 @TypeInfo()
-export default class Player extends WebSocketData {
+export default class Role extends WebSocketData {
 	id?: number;
-	role?: Role;
+	name?: string;
+	color?: Color;
 }
