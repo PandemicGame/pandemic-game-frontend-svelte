@@ -5,5 +5,6 @@ import type Role from '../role/Role.type';
 @TypeInfo()
 export default class Player extends WebSocketData {
 	id?: number;
+	currentField?: number;
 	role?: Role;
 }

@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import type Game from '../Game.type';
 	import { gameService } from '../GameService';
+	import type Player from '../player/Player.type';
 	import type Board from './Board.type';
 	import type Field from './Field.type';
 
@@ -14,12 +15,15 @@
 		if (board) {
 			intializeBoard(board);
 		}
+
+		$effect(() => drawPlayers(game.playersInTurnOrder ?? []));
 	});
 
 	let map: L.Map | undefined;
 	const linePaneName = 'linePane';
 	const fieldIdToCircleMap = new Map<number, L.Circle>();
 	const fieldIdToClickListenerMap = new Map<number, (field: Field) => void>();
+	const fieldIdToNumberOfPlayersMap = new Map<number, number>();
 
 	function intializeBoard(board: Board) {
 		createLinePane();
@@ -148,6 +152,72 @@
 	): number {
 		const rateOfIncrease = (toLatitude - fromLatitude) / (toLongitudeOriginal - fromLongitude);
 		return fromLatitude + rateOfIncrease * (toLongitudeOriginal - toLongitudeNewAtIDL);
+	}
+
+	const playerIconSize = 20;
+
+	function drawPlayers(players: Player[]) {
+		if (!map) {
+			return;
+		}
+
+		fieldIdToNumberOfPlayersMap.clear();
+
+		const m = map;
+
+		fetch('/images/player.svg')
+			.then((response) => response.text())
+			.then((svgText) => {
+				for (const player of players) {
+					drawPlayer(player, svgText, m);
+				}
+			});
+	}
+
+	function drawPlayer(player: Player, iconHtml: string, m: L.Map) {
+		const fieldId = player.currentField;
+		if (!fieldId) {
+			return;
+		}
+
+		const circle = fieldIdToCircleMap.get(fieldId);
+		if (!circle) {
+			return;
+		}
+
+		const offset = determinePlayerOffset(fieldId);
+
+		const color = player.role?.color?.getCssValue() ?? 'rgb(105, 105, 105)';
+
+		const marker = L.marker(circle.getLatLng(), {
+			icon: L.divIcon({
+				html: `<div style="color: ${color};">${iconHtml}</div>`,
+				className: '',
+				iconSize: [playerIconSize, playerIconSize],
+				iconAnchor: [playerIconSize / 2 + offset, playerIconSize]
+			}),
+			interactive: false
+		}).addTo(m);
+	}
+
+	function determinePlayerOffset(fieldId: number): number {
+		const numberOfPlayersOnField = fieldIdToNumberOfPlayersMap.get(fieldId);
+		if (numberOfPlayersOnField) {
+			fieldIdToNumberOfPlayersMap.set(fieldId, numberOfPlayersOnField + 1);
+
+			const isEvenNumberedAdditionalPlayer = numberOfPlayersOnField % 2 == 0;
+
+			const numberForPlayerOnSide = Math.ceil(numberOfPlayersOnField / 2);
+
+			const factor = isEvenNumberedAdditionalPlayer ? 1 : -1;
+
+			const defaultOffset = playerIconSize * 0.75;
+
+			return factor * numberForPlayerOnSide * defaultOffset;
+		} else {
+			fieldIdToNumberOfPlayersMap.set(fieldId, 1);
+			return 0;
+		}
 	}
 
 	function createMap(container: HTMLDivElement): L.Map {
