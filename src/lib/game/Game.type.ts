@@ -17,7 +17,7 @@ export default class Game extends WebSocketData {
 		super();
 	}
 
-	public getPlagueForCode(code: string): Plague | undefined {
+	public findPlagueForCode(code: string): Plague | undefined {
 		return this.plagues.find((p) => p.code === code);
 	}
 }
