@@ -1,3 +1,3 @@
 export default interface Nameable {
-	name?: string;
+	name: string;
 }
