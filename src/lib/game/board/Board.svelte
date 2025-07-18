@@ -67,13 +67,13 @@
 			color: 'black',
 			fillColor: color,
 			fillOpacity: 1,
-			radius: boardSettings.boardSlotRadius!
+			radius: boardSettings.boardSlotRadius
 		}).addTo(map!);
 	}
 
 	function drawLabel(field: Field): L.Marker {
 		return L.marker(
-			[field.ycoordinate! - boardSettings.boardSlotLabelOffset!, field.xcoordinate!],
+			[field.ycoordinate! - boardSettings.boardSlotLabelOffset, field.xcoordinate!],
 			{
 				icon: L.divIcon({
 					className: 'text-black text-center font-bold whitespace-nowrap',
@@ -224,11 +224,11 @@
 
 	function createMap(container: HTMLDivElement): L.Map {
 		const m = L.map(container, {
-			center: [boardSettings.centerY!, boardSettings.centerX!],
-			zoom: boardSettings.defaultZoom!,
+			center: [boardSettings.centerY, boardSettings.centerX],
+			zoom: boardSettings.defaultZoom,
 			maxBounds: [
-				[boardSettings.boundsYMin!, boardSettings.boundsXMin!],
-				[boardSettings.boundsYMax!, boardSettings.boundsXMax!]
+				[boardSettings.boundsYMin, boardSettings.boundsXMin],
+				[boardSettings.boundsYMax, boardSettings.boundsXMax]
 			],
 			maxBoundsViscosity: 1.0
 		});
@@ -241,8 +241,8 @@
 					&copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>
 				`,
 				noWrap: true,
-				maxZoom: boardSettings.maxZoom!,
-				minZoom: boardSettings.minZoom!
+				maxZoom: boardSettings.maxZoom,
+				minZoom: boardSettings.minZoom
 			}
 		).addTo(m);
 

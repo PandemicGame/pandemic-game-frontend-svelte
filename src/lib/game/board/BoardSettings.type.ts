@@ -3,15 +3,19 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class BoardSettings extends WebSocketData {
-	boardSlotRadius?: number;
-	boardSlotLabelOffset?: number;
-	maxZoom?: number;
-	minZoom?: number;
-	defaultZoom?: number;
-	centerX?: number;
-	centerY?: number;
-	boundsXMin?: number;
-	boundsXMax?: number;
-	boundsYMin?: number;
-	boundsYMax?: number;
+	constructor(
+		public boardSlotRadius: number,
+		public boardSlotLabelOffset: number,
+		public maxZoom: number,
+		public minZoom: number,
+		public defaultZoom: number,
+		public centerX: number,
+		public centerY: number,
+		public boundsXMin: number,
+		public boundsXMax: number,
+		public boundsYMin: number,
+		public boundsYMax: number
+	) {
+		super();
+	}
 }
