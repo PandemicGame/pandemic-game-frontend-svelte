@@ -3,10 +3,14 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class Account extends WebSocketData {
-	firstName?: string;
-	lastName?: string;
-	username?: string;
-	email?: string;
-	issuer?: string;
-	subject?: string;
+	constructor(
+		public firstName: string,
+		public lastName: string,
+		public username: string,
+		public email: string,
+		public issuer: string,
+		public subject: string
+	) {
+		super();
+	}
 }
