@@ -4,9 +4,13 @@ import type ChatMessageSender from './ChatMessageSender.type';
 
 @TypeInfo()
 export default class ChatMessage extends WebSocketData {
-	id?: number;
-	sender?: ChatMessageSender | number;
-	chat?: number;
-	message?: string;
-	createdAt?: string | Date;
+	constructor(
+		public id: number,
+		public sender: ChatMessageSender | number,
+		public chat: number,
+		public message: string,
+		public createdAt: string | Date
+	) {
+		super();
+	}
 }
