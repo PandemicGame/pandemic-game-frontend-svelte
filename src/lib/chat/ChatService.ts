@@ -36,6 +36,6 @@ export default abstract class ChatService extends Service {
 	public createIdToChatMessageSenderMap(
 		senders: ChatMessageSender[]
 	): Map<number, ChatMessageSender> {
-		return new Map(senders.filter(this.hasId).map((sender) => [sender.id, sender]));
+		return new Map(senders.map((sender) => [sender.id, sender]));
 	}
 }

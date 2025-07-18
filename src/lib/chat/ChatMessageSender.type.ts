@@ -4,6 +4,10 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class ChatMessageSender extends WebSocketData implements Nameable {
-	id?: number;
-	name?: string;
+	constructor(
+		public id: number,
+		public name: string
+	) {
+		super();
+	}
 }
