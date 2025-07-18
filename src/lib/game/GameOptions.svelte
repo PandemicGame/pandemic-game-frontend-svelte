@@ -20,12 +20,12 @@
 		selectedBoardTypeId = lobby.gameOptions.selectedBoardTypeId;
 	});
 
-	function updateGameOptions(e: SubmitEvent) {
-		e.preventDefault();
-
-		const gameOptions = lobby.gameOptions;
-		gameOptions.selectedBoardTypeId = selectedBoardTypeId;
-		lobbyService.updateGameOptions(gameOptions);
+	function updateGameOptions() {
+		if (lobbyMember && lobby.isOwner(lobbyMember)) {
+			const gameOptions = lobby.gameOptions;
+			gameOptions.selectedBoardTypeId = selectedBoardTypeId;
+			lobbyService.updateGameOptions(gameOptions);
+		}
 	}
 
 	onDestroy(() => {
@@ -35,16 +35,12 @@
 
 <div>
 	<form class="mx-auto w-full max-w-md space-y-4 text-center" onsubmit={updateGameOptions}>
-		<select bind:value={selectedBoardTypeId} class="select">
+		<select bind:value={selectedBoardTypeId} onchange={updateGameOptions} class="select">
 			{#each boardTypes as boardType}
 				<option value={boardType.id}>
 					{boardType.name}
 				</option>
 			{/each}
 		</select>
-
-		{#if lobbyMember && lobby.isOwner(lobbyMember)}
-			<button type="submit" class="btn preset-filled-primary-500">Update options</button>
-		{/if}
 	</form>
 </div>
