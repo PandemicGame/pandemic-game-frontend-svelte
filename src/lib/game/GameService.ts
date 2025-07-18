@@ -3,7 +3,7 @@ import type Field from './board/Field.type';
 
 class GameService extends Service {
 	public createIdToFieldMap(fields: Field[]): Map<number, Field> {
-		return new Map<number, Field>(fields.filter(this.hasId).map((field) => [field.id, field]));
+		return new Map<number, Field>(fields.map((field) => [field.id, field]));
 	}
 }
 

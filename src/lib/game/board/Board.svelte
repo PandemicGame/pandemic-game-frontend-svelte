@@ -39,16 +39,14 @@
 		fieldIdToCircleMap.clear();
 		const idToFieldMap = gameService.createIdToFieldMap(board.fields);
 		for (const [id, field] of idToFieldMap) {
-			if (field.hasCoordinates()) {
-				drawField(field);
-				drawConnections(field, idToFieldMap);
-			}
+			drawField(field);
+			drawConnections(field, idToFieldMap);
 		}
 	}
 
 	function drawField(field: Field) {
 		const id = field.id;
-		if (map && id) {
+		if (map) {
 			const circle = drawCircle(field);
 			fieldIdToCircleMap.set(id, circle);
 			circle.on('click', function () {
@@ -62,8 +60,8 @@
 	}
 
 	function drawCircle(field: Field): L.Circle {
-		const color = game.getPlagueForCode(field.plagueCode ?? '')?.color?.getCssValue();
-		return L.circle([field.ycoordinate!, field.xcoordinate!], {
+		const color = game.getPlagueForCode(field.plagueCode)?.color?.getCssValue();
+		return L.circle([field.ycoordinate, field.xcoordinate], {
 			color: 'black',
 			fillColor: color,
 			fillOpacity: 1,
@@ -73,7 +71,7 @@
 
 	function drawLabel(field: Field): L.Marker {
 		return L.marker(
-			[field.ycoordinate! - boardSettings.boardSlotLabelOffset, field.xcoordinate!],
+			[field.ycoordinate - boardSettings.boardSlotLabelOffset, field.xcoordinate],
 			{
 				icon: L.divIcon({
 					className: 'text-black text-center font-bold whitespace-nowrap',
@@ -87,7 +85,7 @@
 	}
 
 	function drawConnections(field: Field, fields: Map<number, Field>) {
-		for (const id of field.connectionIds ?? []) {
+		for (const id of field.connectionIds) {
 			const connectedField = fields.get(id);
 			if (connectedField) {
 				drawConnection(field, connectedField);
@@ -105,10 +103,10 @@
 	}
 
 	function determineLatLng(from: Field, to: Field): L.LatLngExpression[] {
-		const fromLatitude = from.ycoordinate!;
-		const fromLongitude = from.xcoordinate!;
-		let toLatitude = to.ycoordinate!;
-		let toLongitude = getTargetLongitude(fromLongitude, to.xcoordinate!);
+		const fromLatitude = from.ycoordinate;
+		const fromLongitude = from.xcoordinate;
+		let toLatitude = to.ycoordinate;
+		let toLongitude = getTargetLongitude(fromLongitude, to.xcoordinate);
 
 		if (Math.abs(toLongitude) > 180) {
 			const newLongitude = toLongitude < 0 ? -180 : 180;
@@ -269,14 +267,11 @@
 	}
 
 	function modifyFieldCircleElement(field: Field, callback: (element: Element) => void) {
-		const id = field.id;
-		if (id) {
-			const circle = fieldIdToCircleMap.get(id);
-			if (circle) {
-				const element = circle.getElement();
-				if (element) {
-					callback(element);
-				}
+		const circle = fieldIdToCircleMap.get(field.id);
+		if (circle) {
+			const element = circle.getElement();
+			if (element) {
+				callback(element);
 			}
 		}
 	}
@@ -286,10 +281,7 @@
 	}
 
 	export function addActionListenerToField(field: Field, listener: (field: Field) => void) {
-		const id = field.id;
-		if (id) {
-			fieldIdToClickListenerMap.set(id, listener);
-		}
+		fieldIdToClickListenerMap.set(field.id, listener);
 	}
 
 	export function addActionListenerToFieldAndHighlight(
@@ -301,10 +293,7 @@
 	}
 
 	export function removeActionListenerFromField(field: Field) {
-		const id = field.id;
-		if (id) {
-			fieldIdToClickListenerMap.delete(id);
-		}
+		fieldIdToClickListenerMap.delete(field.id);
 	}
 
 	export function removeActionListenersFromAllFields() {
