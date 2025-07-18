@@ -42,7 +42,7 @@
 	}
 
 	function getChatMessageSenderName(message: ChatMessage): string {
-		if (message.sender && message.sender instanceof ChatMessageSender) {
+		if (message.sender instanceof ChatMessageSender) {
 			return message.sender.name ?? '';
 		}
 		return '';
@@ -60,7 +60,7 @@
 						{getChatMessageSenderName(message)}
 					</span>
 					<span class="shrink-0">
-						[{message.createdAt?.toLocaleString()}]
+						[{message.createdAt.toLocaleString()}]
 					</span>
 					<span class="shrink-0">:</span>
 				</strong>

@@ -18,16 +18,17 @@ export default abstract class ChatService extends Service {
 	}
 
 	public parseChatMessageDate(message: ChatMessage): void {
-		if (message.createdAt) {
-			message.createdAt = new Date(message.createdAt);
-		}
+		message.createdAt = new Date(message.createdAt);
 	}
 
 	public addChatMessageSenders(senders: ChatMessageSender[], messages: ChatMessage[]): void {
 		const sendersById = this.createIdToChatMessageSenderMap(senders);
 		messages.forEach((message) => {
-			if (message.sender && typeof message.sender === 'number') {
-				message.sender = sendersById.get(message.sender);
+			if (typeof message.sender === 'number') {
+				const sender = sendersById.get(message.sender);
+				if (sender) {
+					message.sender = sender;
+				}
 			}
 		});
 	}

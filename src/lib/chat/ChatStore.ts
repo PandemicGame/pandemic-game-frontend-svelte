@@ -18,8 +18,6 @@ export function updateChatStore(chatId: number, messages: ChatMessage[]) {
 
 export function addChatMessage(message: ChatMessage) {
 	const chatId = message.chat;
-	if (chatId) {
-		const store = getChatStore(chatId);
-		store.update((messages) => [...messages, message]);
-	}
+	const store = getChatStore(chatId);
+	store.update((messages) => [...messages, message]);
 }
