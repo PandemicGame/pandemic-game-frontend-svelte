@@ -176,9 +176,6 @@
 
 	function drawPlayer(player: Player, iconHtml: string, m: L.Map) {
 		const fieldId = player.currentField;
-		if (!fieldId) {
-			return;
-		}
 
 		const circle = fieldIdToCircleMap.get(fieldId);
 		if (!circle) {
@@ -187,7 +184,7 @@
 
 		const offset = determinePlayerOffset(fieldId);
 
-		const color = player.role?.color?.getCssValue() ?? 'rgb(105, 105, 105)';
+		const color = player.role.color?.getCssValue() ?? 'rgb(105, 105, 105)';
 
 		const marker = L.marker(circle.getLatLng(), {
 			icon: L.divIcon({
