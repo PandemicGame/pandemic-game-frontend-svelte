@@ -12,11 +12,9 @@
 
 	onMount(() => {
 		const board = game.board;
-		if (board) {
-			intializeBoard(board);
-		}
+		intializeBoard(board);
 
-		$effect(() => drawPlayers(game.playersInTurnOrder ?? []));
+		$effect(() => drawPlayers(game.playersInTurnOrder));
 	});
 
 	let map: L.Map | undefined;
@@ -24,7 +22,7 @@
 	const fieldIdToCircleMap = new Map<number, L.Circle>();
 	const fieldIdToClickListenerMap = new Map<number, (field: Field) => void>();
 	const fieldIdToNumberOfPlayersMap = new Map<number, number>();
-	const boardSettings = game.board?.settings;
+	const boardSettings = game.board.settings;
 
 	function intializeBoard(board: Board) {
 		createLinePane();

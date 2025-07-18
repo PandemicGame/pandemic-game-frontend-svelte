@@ -7,13 +7,17 @@ import type Player from './player/Player.type';
 
 @TypeInfo()
 export default class Game extends WebSocketData {
-	id?: number;
-	lobby?: Lobby;
-	playersInTurnOrder?: Player[];
-	board?: Board;
-	plagues?: Plague[];
+	constructor(
+		public id: number,
+		public lobby: Lobby,
+		public playersInTurnOrder: Player[],
+		public board: Board,
+		public plagues: Plague[]
+	) {
+		super();
+	}
 
 	public getPlagueForCode(code: string): Plague | undefined {
-		return this.plagues?.find((p) => p.code === code);
+		return this.plagues.find((p) => p.code === code);
 	}
 }
