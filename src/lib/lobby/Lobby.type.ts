@@ -33,4 +33,8 @@ export default class Lobby extends WebSocketData {
 			return false;
 		}
 	}
+
+	public findUserLobbyMemberById(id: number): UserLobbyMember | undefined {
+		return this.members.filter((m) => m instanceof UserLobbyMember).find((m) => m.id === id);
+	}
 }

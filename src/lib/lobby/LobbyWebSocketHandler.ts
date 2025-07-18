@@ -15,7 +15,7 @@ class LobbyWebSocketHandler extends WebSocketHandler {
 		} else if (data instanceof LobbyAndAccessTokenHolder) {
 			lobbyService.storeAccessToken(data.accessToken);
 			currentLobby.set(data.lobby);
-			currentLobbyMember.set(data.lobby.members.find((m) => m.id === data.member));
+			currentLobbyMember.set(data.lobby.findUserLobbyMemberById(data.member));
 			goto('/lobby');
 		} else if (data instanceof Lobby) {
 			currentLobby.set(data);

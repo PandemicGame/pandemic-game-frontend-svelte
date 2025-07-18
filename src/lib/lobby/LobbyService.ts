@@ -3,7 +3,6 @@ import type GameOptions from '$lib/game/GameOptions.type';
 import Service from '$lib/Service';
 import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
 import type Lobby from './Lobby.type';
-import type LobbyMember from './LobbyMember.type';
 import { lobbyWebSocketConnector } from './LobbyWebSocketConnector';
 
 class LobbyService extends Service {
@@ -39,13 +38,8 @@ class LobbyService extends Service {
 
 	public addLobbyOwnerToLobby(lobby: Lobby): void {
 		if (typeof lobby.owner === 'number') {
-			const membersById = this.createIdToLobbyMemberMap(lobby.members);
-			lobby.owner = membersById.get(lobby.owner) ?? lobby.owner;
+			lobby.owner = lobby.findUserLobbyMemberById(lobby.owner) ?? lobby.owner;
 		}
-	}
-
-	public createIdToLobbyMemberMap(members: LobbyMember[]): Map<number, LobbyMember> {
-		return new Map(members.map((members) => [members.id, members]));
 	}
 
 	public updateGameOptions(gameOptions: GameOptions): void {
