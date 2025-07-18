@@ -4,5 +4,12 @@ import LobbyMember from './LobbyMember.type';
 
 @TypeInfo()
 export default class UserLobbyMember extends LobbyMember {
-	user?: User;
+	constructor(
+		public id: number,
+		public name: string,
+		public lobby: number,
+		public user: User
+	) {
+		super(id, name, lobby);
+	}
 }
