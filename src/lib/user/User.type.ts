@@ -4,5 +4,11 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class User extends ChatMessageSender {
-	account?: Account;
+	constructor(
+		public id: number,
+		public name: string,
+		public account: Account | null
+	) {
+		super(id, name);
+	}
 }
