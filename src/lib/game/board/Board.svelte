@@ -47,7 +47,7 @@
 	function drawField(field: Field) {
 		const id = field.id;
 		if (map) {
-			const circle = drawCircle(field);
+			const circle = drawCircle(field, map);
 			fieldIdToCircleMap.set(id, circle);
 			circle.on('click', function () {
 				const listener = fieldIdToClickListenerMap.get(id);
@@ -55,21 +55,21 @@
 					listener(field);
 				}
 			});
-			drawLabel(field);
+			drawLabel(field, map);
 		}
 	}
 
-	function drawCircle(field: Field): L.Circle {
+	function drawCircle(field: Field, m: L.Map): L.Circle {
 		const color = game.getPlagueForCode(field.plagueCode)?.color.getCssValue();
 		return L.circle([field.ycoordinate, field.xcoordinate], {
 			color: 'black',
 			fillColor: color,
 			fillOpacity: 1,
 			radius: boardSettings.boardSlotRadius
-		}).addTo(map!);
+		}).addTo(m);
 	}
 
-	function drawLabel(field: Field): L.Marker {
+	function drawLabel(field: Field, m: L.Map): L.Marker {
 		return L.marker(
 			[field.ycoordinate - boardSettings.boardSlotLabelOffset, field.xcoordinate],
 			{
@@ -81,7 +81,7 @@
 				}),
 				interactive: false
 			}
-		).addTo(map!);
+		).addTo(m);
 	}
 
 	function drawConnections(field: Field, fields: Map<number, Field>) {
