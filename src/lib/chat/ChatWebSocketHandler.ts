@@ -14,11 +14,9 @@ class ChatWebSocketHandler extends WebSocketHandler {
 			if (data instanceof GlobalChat) {
 				globalChatIdStore.set(data.id);
 			}
-			userChatService.addChatMessageSenders(data.members ?? [], data.messages ?? []);
-			if (data.id) {
-				data.messages?.forEach(userChatService.parseChatMessageDate);
-				updateChatStore(data.id, data.messages ?? []);
-			}
+			userChatService.addChatMessageSenders(data.members, data.messages);
+			data.messages.forEach(userChatService.parseChatMessageDate);
+			updateChatStore(data.id, data.messages);
 		}
 	}
 }
