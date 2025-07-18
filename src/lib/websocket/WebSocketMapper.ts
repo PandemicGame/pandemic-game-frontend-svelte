@@ -8,8 +8,9 @@ function registerType(className: string, clazz: new () => WebSocketData) {
 	constructorToClassNameAssociation.set(clazz, className);
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function TypeInfo() {
-	return function (target: new () => WebSocketData) {
+	return function (target: new (...args: any[]) => WebSocketData) {
 		registerType(target.name, target);
 	};
 }
@@ -19,7 +20,6 @@ export function addTypeInfo<T>(obj: unknown, clazz: new () => T): T {
 	return obj as T;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export function addTypeInfoRecursively<T extends WebSocketData>(obj: any): T {
 	if (obj && typeof obj === 'object') {
 		const className = obj[WebSocketData.TYPE_INFO_PROPERTY];
