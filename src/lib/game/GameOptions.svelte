@@ -24,7 +24,7 @@
 		e.preventDefault();
 
 		const gameOptions = lobby.gameOptions;
-		if (gameOptions) {
+		if (gameOptions && selectedBoardTypeId) {
 			gameOptions.selectedBoardTypeId = selectedBoardTypeId;
 			lobbyService.updateGameOptions(gameOptions);
 		}
