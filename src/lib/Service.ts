@@ -48,8 +48,4 @@ export default abstract class Service {
 			return await errorHandler(error);
 		}
 	}
-
-	public hasId<T extends { id?: number }>(object: T): object is T & { id: number } {
-		return typeof object.id === 'number';
-	}
 }
