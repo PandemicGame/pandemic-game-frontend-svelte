@@ -7,7 +7,7 @@ class GameWebSocketHandler extends WebSocketHandler {
 	public handle(data: unknown): void {
 		if (data instanceof GameAndPlayerHolder) {
 			currentGame.set(data.game);
-			currentPlayer.set(data.game?.playersInTurnOrder?.find((p) => p.id === data.player));
+			currentPlayer.set(data.game?.playersInTurnOrder.find((p) => p.id === data.player));
 			goto('/game');
 		}
 	}
