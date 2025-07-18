@@ -15,7 +15,7 @@ export function TypeInfo() {
 	};
 }
 
-export function addTypeInfo<T>(obj: unknown, clazz: new () => T): T {
+export function addTypeInfo<T>(obj: unknown, clazz: new (...args: any[]) => T): T {
 	Object.setPrototypeOf(obj, clazz.prototype);
 	return obj as T;
 }
