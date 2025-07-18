@@ -60,7 +60,7 @@
 	}
 
 	function drawCircle(field: Field, m: L.Map): L.Circle {
-		const color = game.getPlagueForCode(field.plagueCode)?.color.getCssValue();
+		const color = game.findPlagueForCode(field.plagueCode)?.color.getCssValue();
 		return L.circle([field.ycoordinate, field.xcoordinate], {
 			color: 'black',
 			fillColor: color,
