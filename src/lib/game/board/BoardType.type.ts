@@ -3,6 +3,10 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class BoardType extends WebSocketData {
-	id?: number;
-	name?: string;
+	constructor(
+		public id: number,
+		public name: string
+	) {
+		super();
+	}
 }
