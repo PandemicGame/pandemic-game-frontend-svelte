@@ -4,7 +4,11 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class Plague extends WebSocketData {
-	code?: string;
-	name?: string;
-	color?: Color;
+	constructor(
+		public code: string,
+		public name: string,
+		public color: Color
+	) {
+		super();
+	}
 }
