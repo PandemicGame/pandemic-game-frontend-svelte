@@ -24,6 +24,7 @@
 	const fieldIdToCircleMap = new Map<number, L.Circle>();
 	const fieldIdToClickListenerMap = new Map<number, (field: Field) => void>();
 	const fieldIdToNumberOfPlayersMap = new Map<number, number>();
+	const boardSettings = game.board?.settings;
 
 	function intializeBoard(board: Board) {
 		createLinePane();
@@ -68,20 +69,23 @@
 			color: 'black',
 			fillColor: color,
 			fillOpacity: 1,
-			radius: 125000
+			radius: boardSettings?.boardSlotRadius!
 		}).addTo(map!);
 	}
 
 	function drawLabel(field: Field): L.Marker {
-		return L.marker([field.ycoordinate! - 1, field.xcoordinate!], {
-			icon: L.divIcon({
-				className: 'text-black text-center font-bold whitespace-nowrap',
-				html: `<div>${field.name}</div>`,
-				iconSize: [150, 20],
-				iconAnchor: [75, 0]
-			}),
-			interactive: false
-		}).addTo(map!);
+		return L.marker(
+			[field.ycoordinate! - boardSettings?.boardSlotLabelOffset!, field.xcoordinate!],
+			{
+				icon: L.divIcon({
+					className: 'text-black text-center font-bold whitespace-nowrap',
+					html: `<div>${field.name}</div>`,
+					iconSize: [150, 20],
+					iconAnchor: [75, 0]
+				}),
+				interactive: false
+			}
+		).addTo(map!);
 	}
 
 	function drawConnections(field: Field, fields: Map<number, Field>) {
@@ -222,11 +226,11 @@
 
 	function createMap(container: HTMLDivElement): L.Map {
 		const m = L.map(container, {
-			center: [0, 0],
-			zoom: 3,
+			center: [boardSettings?.centerY!, boardSettings?.centerX!],
+			zoom: boardSettings?.defaultZoom!,
 			maxBounds: [
-				[-85, -180],
-				[85, 180]
+				[boardSettings?.boundsYMin!, boardSettings?.boundsXMin!],
+				[boardSettings?.boundsYMax!, boardSettings?.boundsXMax!]
 			],
 			maxBoundsViscosity: 1.0
 		});
@@ -239,8 +243,8 @@
 					&copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>
 				`,
 				noWrap: true,
-				maxZoom: 5,
-				minZoom: 3
+				maxZoom: boardSettings?.maxZoom!,
+				minZoom: boardSettings?.minZoom!
 			}
 		).addTo(m);
 
