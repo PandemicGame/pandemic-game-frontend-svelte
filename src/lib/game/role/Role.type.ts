@@ -4,7 +4,11 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 
 @TypeInfo()
 export default class Role extends WebSocketData {
-	id?: number;
-	name?: string;
-	color?: Color;
+	constructor(
+		public id: number,
+		public name: string,
+		public color: Color
+	) {
+		super();
+	}
 }
