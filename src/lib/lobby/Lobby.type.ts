@@ -6,12 +6,16 @@ import UserLobbyMember from './UserLobbyMember.type';
 
 @TypeInfo()
 export default class Lobby extends WebSocketData {
-	id?: number;
-	name?: string;
-	owner?: number | UserLobbyMember;
-	members?: LobbyMember[];
-	chat?: number;
-	gameOptions?: GameOptions;
+	constructor(
+		public id: number,
+		public name: string,
+		public owner: number | UserLobbyMember,
+		public members: LobbyMember[],
+		public chat: number,
+		public gameOptions: GameOptions
+	) {
+		super();
+	}
 
 	public getOwnerName(): string {
 		if (this.owner instanceof UserLobbyMember) {
