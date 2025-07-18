@@ -5,7 +5,11 @@ import type Field from './Field.type';
 
 @TypeInfo()
 export default class Board extends WebSocketData {
-	id?: number;
-	fields?: Field[];
-	settings?: BoardSettings;
+	constructor(
+		public id: number,
+		public fields: Field[],
+		public settings: BoardSettings
+	) {
+		super();
+	}
 }
