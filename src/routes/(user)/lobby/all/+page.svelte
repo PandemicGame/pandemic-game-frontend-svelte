@@ -27,10 +27,7 @@
 	});
 
 	function joinLobby(lobby: Lobby) {
-		const id = lobby.id;
-		if (id) {
-			lobbyService.joinLobby(id);
-		}
+		lobbyService.joinLobby(lobby.id);
 	}
 </script>
 
@@ -62,11 +59,11 @@
 									openDelay={200}
 									arrow>
 									{#snippet trigger()}
-										{lobby.members?.length}
+										{lobby.members.length}
 									{/snippet}
 									{#snippet content()}
 										<ul>
-											{#each lobby.members ?? [] as member}
+											{#each lobby.members as member}
 												<li>{member.name}</li>
 											{/each}
 										</ul>

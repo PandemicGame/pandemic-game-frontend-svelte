@@ -13,7 +13,7 @@
 
 	const unsubsribeLobby = currentLobby.subscribe((l) => (lobby = l));
 
-	let isGameStartable = $derived<boolean>((lobby?.members?.length ?? 0) >= 2);
+	let isGameStartable = $derived<boolean>((lobby?.members.length ?? 0) >= 2);
 
 	let lobbyMember = $state<UserLobbyMember | undefined>();
 
@@ -29,7 +29,7 @@
 	<h1 class="text-center text-4xl">{lobby?.name}</h1>
 	<div class="grid w-full grid-cols-3 gap-2">
 		<div>
-			{#if lobby?.members}
+			{#if lobby}
 				<NameableList nameables={lobby.members} />
 			{/if}
 		</div>
@@ -39,8 +39,8 @@
 			{/if}
 		</div>
 		<div class="h-full w-full">
-			{#if lobby?.chat}
-				<Chat heading={'Lobby Chat'} chatId={lobby?.chat} chatService={lobbyChatService} />
+			{#if lobby}
+				<Chat heading={'Lobby Chat'} chatId={lobby.chat} chatService={lobbyChatService} />
 			{/if}
 		</div>
 	</div>

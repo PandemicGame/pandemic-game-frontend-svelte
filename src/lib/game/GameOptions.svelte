@@ -12,22 +12,20 @@
 
 	const unsubscribeLobbyMember = currentLobbyMember.subscribe((l) => (lobbyMember = l));
 
-	let boardTypes = $derived<BoardType[] | undefined>(lobby.gameOptions?.availableBoardTypes);
+	let boardTypes = $derived<BoardType[]>(lobby.gameOptions.availableBoardTypes);
 
-	let selectedBoardTypeId = $state<number | undefined>();
+	let selectedBoardTypeId = $state<number>(lobby.gameOptions.selectedBoardTypeId);
 
 	$effect(() => {
-		selectedBoardTypeId = lobby.gameOptions?.selectedBoardTypeId;
+		selectedBoardTypeId = lobby.gameOptions.selectedBoardTypeId;
 	});
 
 	function updateGameOptions(e: SubmitEvent) {
 		e.preventDefault();
 
 		const gameOptions = lobby.gameOptions;
-		if (gameOptions && selectedBoardTypeId) {
-			gameOptions.selectedBoardTypeId = selectedBoardTypeId;
-			lobbyService.updateGameOptions(gameOptions);
-		}
+		gameOptions.selectedBoardTypeId = selectedBoardTypeId;
+		lobbyService.updateGameOptions(gameOptions);
 	}
 
 	onDestroy(() => {
@@ -37,17 +35,15 @@
 
 <div>
 	<form class="mx-auto w-full max-w-md space-y-4 text-center" onsubmit={updateGameOptions}>
-		{#if boardTypes}
-			<select bind:value={selectedBoardTypeId} class="select">
-				{#each boardTypes as boardType}
-					<option value={boardType.id}>
-						{boardType.name}
-					</option>
-				{/each}
-			</select>
-		{/if}
+		<select bind:value={selectedBoardTypeId} class="select">
+			{#each boardTypes as boardType}
+				<option value={boardType.id}>
+					{boardType.name}
+				</option>
+			{/each}
+		</select>
 
-		{#if lobbyMember && lobby?.isOwner(lobbyMember)}
+		{#if lobbyMember && lobby.isOwner(lobbyMember)}
 			<button type="submit" class="btn preset-filled-primary-500">Update options</button>
 		{/if}
 	</form>

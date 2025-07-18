@@ -39,7 +39,7 @@ class LobbyService extends Service {
 
 	public addLobbyOwnerToLobby(lobby: Lobby): void {
 		if (typeof lobby.owner === 'number') {
-			const membersById = this.createIdToLobbyMemberMap(lobby.members ?? []);
+			const membersById = this.createIdToLobbyMemberMap(lobby.members);
 			lobby.owner = membersById.get(lobby.owner) ?? lobby.owner;
 		}
 	}
