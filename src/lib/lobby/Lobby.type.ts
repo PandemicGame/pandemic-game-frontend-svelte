@@ -15,7 +15,7 @@ export default class Lobby extends WebSocketData {
 
 	public getOwnerName(): string {
 		if (this.owner instanceof UserLobbyMember) {
-			return this.owner.name ?? '';
+			return this.owner.name;
 		}
 		return '';
 	}

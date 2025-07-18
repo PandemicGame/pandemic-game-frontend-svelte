@@ -43,7 +43,7 @@
 
 	function getChatMessageSenderName(message: ChatMessage): string {
 		if (message.sender instanceof ChatMessageSender) {
-			return message.sender.name ?? '';
+			return message.sender.name;
 		}
 		return '';
 	}

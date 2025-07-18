@@ -45,7 +45,7 @@ class LobbyService extends Service {
 	}
 
 	public createIdToLobbyMemberMap(members: LobbyMember[]): Map<number, LobbyMember> {
-		return new Map(members.filter(this.hasId).map((members) => [members.id, members]));
+		return new Map(members.map((members) => [members.id, members]));
 	}
 
 	public updateGameOptions(gameOptions: GameOptions): void {
