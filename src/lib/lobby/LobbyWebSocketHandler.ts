@@ -13,12 +13,10 @@ class LobbyWebSocketHandler extends WebSocketHandler {
 				lobbyStore.set(data);
 			}
 		} else if (data instanceof LobbyAndAccessTokenHolder) {
-			if (data.accessToken && data.lobby && data.member) {
-				lobbyService.storeAccessToken(data.accessToken);
-				currentLobby.set(data.lobby);
-				currentLobbyMember.set(data.lobby.members.find((m) => m.id === data.member));
-				goto('/lobby');
-			}
+			lobbyService.storeAccessToken(data.accessToken);
+			currentLobby.set(data.lobby);
+			currentLobbyMember.set(data.lobby.members.find((m) => m.id === data.member));
+			goto('/lobby');
 		} else if (data instanceof Lobby) {
 			currentLobby.set(data);
 		}

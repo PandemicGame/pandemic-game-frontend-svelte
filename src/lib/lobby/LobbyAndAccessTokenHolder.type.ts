@@ -4,7 +4,11 @@ import type Lobby from './Lobby.type';
 
 @TypeInfo()
 export default class LobbyAndAccessTokenHolder extends WebSocketData {
-	lobby?: Lobby;
-	accessToken?: string;
-	member?: number;
+	constructor(
+		public lobby: Lobby,
+		public accessToken: string,
+		public member: number
+	) {
+		super();
+	}
 }
