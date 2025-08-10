@@ -3,6 +3,7 @@ import { TypeInfo } from '$lib/websocket/WebSocketMapper';
 import type Board from './board/Board.type';
 import type Plague from './plague/Plague.type';
 import type Player from './player/Player.type';
+import type Turn from './turn/Turn.type';
 
 @TypeInfo()
 export default class Game extends WebSocketData {
@@ -11,7 +12,8 @@ export default class Game extends WebSocketData {
 		public lobbyId: number,
 		public playersInTurnOrder: Player[],
 		public board: Board,
-		public plagues: Plague[]
+		public plagues: Plague[],
+		public turns: Turn[]
 	) {
 		super();
 	}
