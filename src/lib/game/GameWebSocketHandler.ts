@@ -1,5 +1,6 @@
 import { goto } from '$app/navigation';
 import WebSocketHandler from '$lib/websocket/WebSocketHandler';
+import Game from './Game.type';
 import GameAndPlayerHolder from './GameAndPlayerHolder.type';
 import { currentGame, currentPlayer } from './GameStore';
 
@@ -9,6 +10,8 @@ class GameWebSocketHandler extends WebSocketHandler {
 			currentGame.set(data.game);
 			currentPlayer.set(data.game.playersInTurnOrder.find((p) => p.id === data.player));
 			goto('/game');
+		} else if (data instanceof Game) {
+			currentGame.set(data);
 		}
 	}
 }
