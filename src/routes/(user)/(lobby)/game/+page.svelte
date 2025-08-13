@@ -1,16 +1,35 @@
 <script lang="ts">
+	import handleMoveAction from '$lib/game/action/handlers/handleMoveActions';
 	import Board from '$lib/game/board/Board.svelte';
 	import Game from '$lib/game/Game.type';
-	import { currentGame } from '$lib/game/GameStore';
+	import { gameService } from '$lib/game/GameService';
+	import { currentGame, currentPlayer } from '$lib/game/GameStore';
+	import Player from '$lib/game/player/Player.type';
+	import ContextMenu from '$lib/util/ContextMenu.svelte';
 	import { onDestroy } from 'svelte';
 
 	let game = $state<Game | undefined>();
+	let player = $state<Player | undefined>();
 
-	const unsubscribe = currentGame.subscribe((g) => (game = g));
+	const unsubscribeGame = currentGame.subscribe((g) => (game = g));
+	const unsubscribePlayer = currentPlayer.subscribe((p) => (player = p));
 
-	onDestroy(() => unsubscribe());
+	onDestroy(() => {
+		unsubscribeGame();
+		unsubscribePlayer();
+	});
 
 	let boardComponent = $state<Board | undefined>();
+	let contextMenuComponent = $state<ContextMenu | undefined>();
+
+	$effect(() => {
+		if (game && player && boardComponent && contextMenuComponent) {
+			const availableActions = game.getAvailableActions();
+			if (availableActions.length > 0 && gameService.canPlayerExecuteActions(player, game)) {
+				handleMoveAction(availableActions, boardComponent, contextMenuComponent);
+			}
+		}
+	});
 </script>
 
 <div class="grid h-screen w-screen grid-cols-[1fr_auto]">
@@ -33,4 +52,6 @@
 	<div>
 		<div>Player Information</div>
 	</div>
+
+	<ContextMenu bind:this={contextMenuComponent} />
 </div>
