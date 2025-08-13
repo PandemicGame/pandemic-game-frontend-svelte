@@ -22,6 +22,10 @@
 	const fieldIdToCircleMap = new Map<number, L.Circle>();
 	const fieldIdToClickListenerMap = new Map<number, (event: MouseEvent, field: Field) => void>();
 	const fieldIdToNumberOfPlayersMap = new Map<number, number>();
+	const playerIdToClickListenerMap = new Map<
+		number,
+		(event: MouseEvent, player: Player) => void
+	>();
 	const boardSettings = game.board.settings;
 
 	function intializeBoard(board: Board) {
@@ -192,9 +196,15 @@
 				className: '',
 				iconSize: [playerIconSize, playerIconSize],
 				iconAnchor: [playerIconSize / 2 + offset, playerIconSize]
-			}),
-			interactive: false
+			})
 		}).addTo(m);
+
+		marker.on('click', function (e) {
+			const listener = playerIdToClickListenerMap.get(player.id);
+			if (listener) {
+				listener(e.originalEvent, player);
+			}
+		});
 	}
 
 	function determinePlayerOffset(fieldId: number): number {
@@ -298,6 +308,17 @@
 
 	export function removeActionListenersFromAllFields() {
 		fieldIdToClickListenerMap.keys().forEach((key) => removeActionListenerFromField(key));
+	}
+
+	export function addActionListenerToPlayer(
+		playerId: number,
+		listener: (event: MouseEvent, player: Player) => void
+	) {
+		playerIdToClickListenerMap.set(playerId, listener);
+	}
+
+	export function removeActionListenerFromPlayer(playerId: number) {
+		playerIdToClickListenerMap.delete(playerId);
 	}
 </script>
 
