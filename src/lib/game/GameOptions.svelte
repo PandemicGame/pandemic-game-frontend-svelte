@@ -12,6 +12,8 @@
 
 	const unsubscribeLobbyMember = currentLobbyMember.subscribe((l) => (lobbyMember = l));
 
+	let isLobbyOwner = $derived(lobbyMember && lobby.isOwner(lobbyMember));
+
 	let boardTypes = $derived<BoardType[]>(lobby.gameOptions.availableBoardTypes);
 
 	let selectedBoardTypeId = $state<number>(lobby.gameOptions.selectedBoardTypeId);
@@ -21,7 +23,7 @@
 	});
 
 	function updateGameOptions() {
-		if (lobbyMember && lobby.isOwner(lobbyMember)) {
+		if (isLobbyOwner) {
 			const gameOptions = lobby.gameOptions;
 			gameOptions.selectedBoardTypeId = selectedBoardTypeId;
 			lobbyService.updateGameOptions(gameOptions);
@@ -35,7 +37,11 @@
 
 <div>
 	<form class="mx-auto w-full max-w-md space-y-4 text-center" onsubmit={updateGameOptions}>
-		<select bind:value={selectedBoardTypeId} onchange={updateGameOptions} class="select">
+		<select
+			bind:value={selectedBoardTypeId}
+			onchange={updateGameOptions}
+			disabled={!isLobbyOwner}
+			class="select">
 			{#each boardTypes as boardType}
 				<option value={boardType.id}>
 					{boardType.name}
