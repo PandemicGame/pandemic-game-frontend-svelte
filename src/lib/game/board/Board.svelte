@@ -26,6 +26,7 @@
 		number,
 		(event: MouseEvent, player: Player) => void
 	>();
+	const playerMarkers: L.Marker[] = [];
 	const boardSettings = game.board.settings;
 
 	function intializeBoard(board: Board) {
@@ -165,6 +166,8 @@
 			return;
 		}
 
+		removePlayerMarkers(map);
+
 		fieldIdToNumberOfPlayersMap.clear();
 
 		const m = map;
@@ -173,12 +176,20 @@
 			.then((response) => response.text())
 			.then((svgText) => {
 				for (const player of players) {
-					drawPlayer(player, svgText, m);
+					const marker = drawPlayer(player, svgText, m);
+					if (marker) {
+						playerMarkers.push(marker);
+					}
 				}
 			});
 	}
 
-	function drawPlayer(player: Player, iconHtml: string, m: L.Map) {
+	function removePlayerMarkers(m: L.Map) {
+		playerMarkers.forEach((marker) => m.removeLayer(marker));
+		playerMarkers.splice(0, playerMarkers.length);
+	}
+
+	function drawPlayer(player: Player, iconHtml: string, m: L.Map): L.Marker | undefined {
 		const fieldId = player.currentField;
 
 		const circle = fieldIdToCircleMap.get(fieldId);
@@ -205,6 +216,8 @@
 				listener(e.originalEvent, player);
 			}
 		});
+
+		return marker;
 	}
 
 	function determinePlayerOffset(fieldId: number): number {
