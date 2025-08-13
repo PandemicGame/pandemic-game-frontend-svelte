@@ -255,16 +255,16 @@
 
 	const highlightAnimationCssClass = 'animate-blink';
 
-	export function highlightField(field: Field) {
-		modifyFieldCircleElement(field, (el) => el.classList.add(highlightAnimationCssClass));
+	export function highlightField(fieldId: number) {
+		modifyFieldCircleElement(fieldId, (el) => el.classList.add(highlightAnimationCssClass));
 	}
 
-	export function unhighlightField(field: Field) {
-		modifyFieldCircleElement(field, (el) => el.classList.remove(highlightAnimationCssClass));
+	export function unhighlightField(fieldId: number) {
+		modifyFieldCircleElement(fieldId, (el) => el.classList.remove(highlightAnimationCssClass));
 	}
 
-	function modifyFieldCircleElement(field: Field, callback: (element: Element) => void) {
-		const circle = fieldIdToCircleMap.get(field.id);
+	function modifyFieldCircleElement(fieldId: number, callback: (element: Element) => void) {
+		const circle = fieldIdToCircleMap.get(fieldId);
 		if (circle) {
 			const element = circle.getElement();
 			if (element) {
@@ -274,7 +274,7 @@
 	}
 
 	export function unhighlightAllFields() {
-		fieldIdToCircleMap.keys().forEach((key) => unhighlightField({ id: key } as Field));
+		fieldIdToCircleMap.keys().forEach((key) => unhighlightField(key));
 	}
 
 	export function addActionListenerToField(field: Field, listener: (field: Field) => void) {
