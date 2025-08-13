@@ -20,7 +20,7 @@
 	let map: L.Map | undefined;
 	const linePaneName = 'linePane';
 	const fieldIdToCircleMap = new Map<number, L.Circle>();
-	const fieldIdToClickListenerMap = new Map<number, (field: Field) => void>();
+	const fieldIdToClickListenerMap = new Map<number, (event: MouseEvent, field: Field) => void>();
 	const fieldIdToNumberOfPlayersMap = new Map<number, number>();
 	const boardSettings = game.board.settings;
 
@@ -49,10 +49,10 @@
 		if (map) {
 			const circle = drawCircle(field, map);
 			fieldIdToCircleMap.set(id, circle);
-			circle.on('click', function () {
+			circle.on('click', function (e) {
 				const listener = fieldIdToClickListenerMap.get(id);
 				if (listener) {
-					listener(field);
+					listener(e.originalEvent, field);
 				}
 			});
 			drawLabel(field, map);
@@ -277,26 +277,27 @@
 		fieldIdToCircleMap.keys().forEach((key) => unhighlightField(key));
 	}
 
-	export function addActionListenerToField(field: Field, listener: (field: Field) => void) {
-		fieldIdToClickListenerMap.set(field.id, listener);
+	export function addActionListenerToField(
+		fieldId: number,
+		listener: (event: MouseEvent, field: Field) => void
+	) {
+		fieldIdToClickListenerMap.set(fieldId, listener);
 	}
 
 	export function addActionListenerToFieldAndHighlight(
-		field: Field,
-		listener: (field: Field) => void
+		fieldId: number,
+		listener: (event: MouseEvent, field: Field) => void
 	) {
-		addActionListenerToField(field, listener);
-		highlightField(field);
+		addActionListenerToField(fieldId, listener);
+		highlightField(fieldId);
 	}
 
-	export function removeActionListenerFromField(field: Field) {
-		fieldIdToClickListenerMap.delete(field.id);
+	export function removeActionListenerFromField(fieldId: number) {
+		fieldIdToClickListenerMap.delete(fieldId);
 	}
 
 	export function removeActionListenersFromAllFields() {
-		fieldIdToClickListenerMap
-			.keys()
-			.forEach((key) => removeActionListenerFromField({ id: key } as Field));
+		fieldIdToClickListenerMap.keys().forEach((key) => removeActionListenerFromField(key));
 	}
 </script>
 
