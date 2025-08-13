@@ -1,5 +1,6 @@
 import WebSocketData from '$lib/websocket/WebSocketData';
 import { TypeInfo } from '$lib/websocket/WebSocketMapper';
+import type Action from './action/Action.type';
 import type Board from './board/Board.type';
 import type Plague from './plague/Plague.type';
 import type Player from './player/Player.type';
@@ -20,5 +21,13 @@ export default class Game extends WebSocketData {
 
 	public findPlagueForCode(code: string): Plague | undefined {
 		return this.plagues.find((p) => p.code === code);
+	}
+
+	public getCurrentTurn(): Turn {
+		return this.turns[this.turns.length - 1];
+	}
+
+	public getAvailableActions(): Action[] {
+		return this.getCurrentTurn().availableActions;
 	}
 }
