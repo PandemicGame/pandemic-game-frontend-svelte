@@ -1,24 +1,26 @@
+import { goto } from '$app/navigation';
 import Service from '$lib/Service';
 import type User from './User.type';
 
 class UserService extends Service {
-	private readonly throwError = () => {
-		throw new Error('An error occured while fetching user info.');
-	};
-
 	public async getUserInfo(accessToken: string): Promise<User> {
-		return this.fetchJson<User>(
-			`${this.apiUrl}/user`,
-			{
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: accessToken
+		const res = await fetch(`${this.apiUrl}/user`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
 			},
-			this.throwError,
-			this.throwError
-		);
+			body: accessToken
+		});
+
+		if (res.status === 404) {
+			goto('/logout');
+		}
+
+		if (!res.ok) {
+			throw new Error(`HTTP error ${res.status}`);
+		}
+
+		return res.json() as Promise<User>;
 	}
 }
 
