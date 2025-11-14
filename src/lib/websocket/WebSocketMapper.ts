@@ -1,7 +1,9 @@
 import WebSocketData from './WebSocketData';
 
-const classNameToConstructorAssociation = new Map<string, new () => WebSocketData>();
-const constructorToClassNameAssociation = new Map<new () => WebSocketData, string>();
+type WebSocketDataConstructor = new () => WebSocketData;
+
+const classNameToConstructorAssociation = new Map<string, WebSocketDataConstructor>();
+const constructorToClassNameAssociation = new Map<WebSocketDataConstructor, string>();
 
 function registerType(className: string, clazz: new () => WebSocketData) {
 	classNameToConstructorAssociation.set(className, clazz);
