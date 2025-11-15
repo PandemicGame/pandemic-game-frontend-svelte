@@ -5,6 +5,7 @@
 	import { gameService } from '$lib/game/GameService';
 	import { currentGame, currentPlayer } from '$lib/game/GameStore';
 	import Player from '$lib/game/player/Player.type';
+	import PlayerInformationList from '$lib/game/player/PlayerInformationList.svelte';
 	import ContextMenu from '$lib/util/ContextMenu.svelte';
 	import { onDestroy } from 'svelte';
 
@@ -50,7 +51,7 @@
 		</div>
 	</div>
 	<div>
-		<div>Player Information</div>
+		<PlayerInformationList players={game?.playersInTurnOrder ?? []} />
 	</div>
 
 	<ContextMenu bind:this={contextMenuComponent} />
