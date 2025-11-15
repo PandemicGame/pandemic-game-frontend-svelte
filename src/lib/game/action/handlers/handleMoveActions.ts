@@ -98,6 +98,7 @@ function allowExecutionOfMoveActionEffectsForPlayerToField(
 ) {
 	const executeMoveActionEffect = (m: MoveActionEffect) => {
 		gameService.executeActionEffect(m);
+		boardComponent.removeActionListenersFromAllPlayers();
 		boardComponent.unhighlightAllFields();
 		boardComponent.removeActionListenersFromAllFields();
 	};
