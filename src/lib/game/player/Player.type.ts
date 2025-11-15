@@ -6,6 +6,7 @@ import type Role from '../role/Role.type';
 export default class Player extends WebSocketData {
 	constructor(
 		public id: number,
+		public name: string,
 		public currentField: number,
 		public role: Role
 	) {
