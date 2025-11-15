@@ -333,6 +333,10 @@
 	export function removeActionListenerFromPlayer(playerId: number) {
 		playerIdToClickListenerMap.delete(playerId);
 	}
+
+	export function removeActionListenersFromAllPlayers() {
+		playerIdToClickListenerMap.keys().forEach((key) => removeActionListenerFromPlayer(key));
+	}
 </script>
 
 <div class="h-full w-full" use:mapAction></div>
