@@ -1,8 +1,9 @@
 import { goto } from '$app/navigation';
 import WebSocketHandler from '$lib/websocket/WebSocketHandler';
+import Effect from './effect/Effect.type';
 import Game from './Game.type';
 import GameAndPlayerHolder from './GameAndPlayerHolder.type';
-import { currentGame, currentPlayer } from './GameStore';
+import { currentGame, currentPlayer, effectToAnswer } from './GameStore';
 
 class GameWebSocketHandler extends WebSocketHandler {
 	public handle(data: unknown): void {
@@ -12,6 +13,8 @@ class GameWebSocketHandler extends WebSocketHandler {
 			goto('/game');
 		} else if (data instanceof Game) {
 			currentGame.set(data);
+		} else if (data instanceof Effect) {
+			effectToAnswer.set(data);
 		}
 	}
 }
