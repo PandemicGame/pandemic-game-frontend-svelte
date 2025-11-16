@@ -7,6 +7,7 @@
 	import Player from '$lib/game/player/Player.type';
 	import PlayerInformationList from '$lib/game/player/PlayerInformationList.svelte';
 	import ContextMenu from '$lib/util/ContextMenu.svelte';
+	import Dialog from '$lib/util/Dialog.svelte';
 	import { onDestroy } from 'svelte';
 
 	let game = $state<Game | undefined>();
@@ -22,6 +23,7 @@
 
 	let boardComponent = $state<Board | undefined>();
 	let contextMenuComponent = $state<ContextMenu | undefined>();
+	let dialogComponent = $state<Dialog | undefined>();
 
 	$effect(() => {
 		if (game && player && boardComponent && contextMenuComponent) {
@@ -55,4 +57,6 @@
 	</div>
 
 	<ContextMenu bind:this={contextMenuComponent} />
+
+	<Dialog bind:this={dialogComponent} />
 </div>
