@@ -97,7 +97,7 @@ function allowExecutionOfMoveActionEffectsForPlayerToField(
 	contextMenuComponent: ContextMenu
 ) {
 	const executeMoveActionEffect = (m: MoveActionEffect) => {
-		gameService.executeActionEffect(m);
+		gameService.executeEffect(m);
 		boardComponent.removeActionListenersFromAllPlayers();
 		boardComponent.unhighlightAllFields();
 		boardComponent.removeActionListenersFromAllFields();

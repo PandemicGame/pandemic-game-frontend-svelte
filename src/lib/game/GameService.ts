@@ -1,8 +1,8 @@
 import Service from '$lib/Service';
 import { lobbyWebSocketConnector } from '$lib/lobby/LobbyWebSocketConnector';
 import type Game from './Game.type';
-import type ActionEffect from './action/effects/ActionEffect.type';
 import type Field from './board/Field.type';
+import type Effect from './effect/Effect.type';
 import type Player from './player/Player.type';
 
 class GameService extends Service {
@@ -10,8 +10,8 @@ class GameService extends Service {
 		return new Map<number, Field>(fields.map((field) => [field.id, field]));
 	}
 
-	public executeActionEffect(actionEffect: ActionEffect) {
-		lobbyWebSocketConnector.sendMessage('/game/execute-action-effect', String(actionEffect.id));
+	public executeEffect(effect: Effect) {
+		lobbyWebSocketConnector.sendMessage('/game/execute-effect', String(effect.id));
 	}
 
 	public canPlayerExecuteActions(player: Player, game: Game): boolean {
