@@ -3,7 +3,7 @@
 	import { lobbyService } from '$lib/lobby/LobbyService';
 	import { lobbyStore } from '$lib/lobby/LobbyStore';
 	import { userWebSocketConnector } from '$lib/user/UserWebSocketConnector';
-	import { Tooltip } from '@skeletonlabs/skeleton-svelte';
+	import { Portal, Tooltip } from '@skeletonlabs/skeleton-svelte';
 	import { onDestroy, onMount } from 'svelte';
 
 	let lobbies = $state<Lobby[]>([]);
@@ -55,19 +55,25 @@
 									open={lobbyMemberTooltipOpenStates[i]}
 									onOpenChange={(e) => (lobbyMemberTooltipOpenStates[i] = e.open)}
 									positioning={{ placement: 'top' }}
-									contentBase="card preset-filled p-4"
-									openDelay={200}
-									arrow>
-									{#snippet trigger()}
-										{lobby.members.length}
-									{/snippet}
-									{#snippet content()}
-										<ul>
-											{#each lobby.members as member}
-												<li>{member.name}</li>
-											{/each}
-										</ul>
-									{/snippet}
+									openDelay={200}>
+									<Tooltip.Trigger>{lobby.members.length}</Tooltip.Trigger>
+									<Portal>
+										<Tooltip.Positioner>
+											<Tooltip.Content
+												class="card bg-surface-100-900 p-2 shadow-xl">
+												<ul>
+													{#each lobby.members as member}
+														<li>{member.name}</li>
+													{/each}
+												</ul>
+
+												<Tooltip.Arrow
+													style="--arrow-size: calc(var(--spacing) * 2); --arrow-background: var(--color-surface-100-900);">
+													<Tooltip.ArrowTip />
+												</Tooltip.Arrow>
+											</Tooltip.Content>
+										</Tooltip.Positioner>
+									</Portal>
 								</Tooltip>
 							</td>
 						</tr>
