@@ -3,7 +3,7 @@
 	import Board from '$lib/game/board/Board.svelte';
 	import Game from '$lib/game/Game.type';
 	import { gameService } from '$lib/game/GameService';
-	import { currentGame, currentPlayer } from '$lib/game/GameStore';
+	import { currentGame, currentPlayer, effectToAnswer } from '$lib/game/GameStore';
 	import Player from '$lib/game/player/Player.type';
 	import PlayerInformationList from '$lib/game/player/PlayerInformationList.svelte';
 	import ContextMenu from '$lib/util/ContextMenu.svelte';
@@ -15,10 +15,22 @@
 
 	const unsubscribeGame = currentGame.subscribe((g) => (game = g));
 	const unsubscribePlayer = currentPlayer.subscribe((p) => (player = p));
+	const unsubscribeEffectToAnswer = effectToAnswer.subscribe((e) => {
+		if (e) {
+			dialogComponent?.openDialog(
+				false,
+				'',
+				'',
+				() => gameService.approveEffect(e),
+				() => gameService.rejectEffect(e)
+			);
+		}
+	});
 
 	onDestroy(() => {
 		unsubscribeGame();
 		unsubscribePlayer();
+		unsubscribeEffectToAnswer();
 	});
 
 	let boardComponent = $state<Board | undefined>();

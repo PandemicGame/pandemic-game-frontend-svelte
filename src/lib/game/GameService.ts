@@ -14,6 +14,14 @@ class GameService extends Service {
 		lobbyWebSocketConnector.sendMessage('/game/execute-effect', String(effect.id));
 	}
 
+	public approveEffect(effect: Effect) {
+		lobbyWebSocketConnector.sendMessage('/game/approve-effect', String(effect.id));
+	}
+
+	public rejectEffect(effect: Effect) {
+		lobbyWebSocketConnector.sendMessage('/game/reject-effect', String(effect.id));
+	}
+
 	public canPlayerExecuteActions(player: Player, game: Game): boolean {
 		return game.getCurrentTurn().player === player?.id;
 	}
